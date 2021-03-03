@@ -1,0 +1,186 @@
+/***************************************** 
+ * Organized by sequence in corresponding HTML
+ *****************************************/
+
+div[class~="info-page"].page-container {
+    min-height: fit-content;
+    min-width: fit-content;
+    grid-template-rows: fit-content(100%) auto fit-content(100%);
+    background-color: var(--background-color);
+    min-height: 100vh;
+}
+
+div[class~="info-page"] header[class="grid-3"] {
+    grid-template-columns: fit-content(100%) auto fit-content(100%);
+    background-color: var(--background-color-secondary);
+    height: fit-content;
+}
+
+div[class~="info-page"] .logo-container {
+    display: block;
+    width: 90px;
+}
+
+div[class~="info-page"] .logo-container img {
+    display: block;
+    padding: 7px 14px 7px 21px;
+    width: 100%;
+}
+
+div[class~="info-page"] .home-nav {
+    align-self: center;
+    margin-top: 7px;
+}
+
+div[class~="info-page"] .home-nav div div {
+    position: relative;
+    margin-right: 14px;
+    justify-content: center;
+    align-items: center;
+}
+
+div[class~="info-page"] .home-nav div div a {
+    color: var(--text-color);
+    font-size: 35px;
+    z-index: 1;
+}
+
+div[class~="info-page"] .home-nav div div[class="flex-row red-text"] a {
+    color: var(--text-color-secondary);
+}
+
+div[class~="info-page"] .nav-selector {
+    position: absolute;
+    width: 50px;
+    padding-bottom: 6px;
+}
+
+div[class~="info-page"] .nav-selector-white {
+    position: absolute;
+    width: 15px;
+    padding-bottom: 50px;
+}
+
+div[class~="info-page"] .sign-in-nav {
+    width: 200px;
+    align-self: center;
+    margin-top: 11px;
+    padding-right: 20px;
+}
+
+div[class~="info-page"] .sign-in-nav ul {
+    justify-content: space-between;
+}
+
+div[class~="info-page"] .sign-in-nav ul li {
+    display: inline;
+}
+
+div[class~="info-page"] .sign-in-nav ul li a {
+    display: inline-block;
+    color: var(--text-color);
+    font-size: 35px;
+}
+
+div[class~="info-page"] .sign-in-nav ul li[class="red-text"] a {
+    color: var(--text-color-secondary);
+}
+
+div[class~="info-page"] .content-container h1 {
+    padding-left: 14px;
+    margin: 0;
+    font-size: 60px;
+    color: var(--text-color-secondary);
+    background-image: linear-gradient(90deg, #000000, #00000000);
+}
+
+div[class~="info-page"] footer {
+    background-color: var(--background-color-secondary);
+    padding: 14px;
+    height: fit-content;
+    justify-content: space-between;
+}
+
+div[class~="info-page"] footer nav {
+    margin: auto;
+    width: 400px;
+    justify-content: space-between;
+}
+
+div[class~="info-page"] footer nav p {
+    display: block;
+    color: var(--text-color);
+    opacity: 0.3;
+    margin: auto;
+}
+
+div[class~="info-page"] footer nav p a {
+    display: block;
+    color: var(--text-color);
+}
+
+@media only screen and (max-width: 768px) {
+    /* Nothing here at the moment */
+} 
+
+@media only screen and (max-width: 500px) {
+    
+    div[class~="info-page"] .mobile-hide {
+        display: none;
+    }
+    
+    div[class~="info-page"] header {
+        width: 100vw;
+        height: 120px;
+    }
+
+    div[class~="info-page"] .logo-container img {
+        display: block;
+        height: 100%;
+    }
+
+    div[class~="info-page"] .home-nav {
+        padding-right: 30px;
+    }
+
+    div[class~="info-page"] .home-nav div {
+        flex-wrap: wrap;
+    }
+
+    div[class~="info-page"] .home-nav div div a {
+        font-size: 20px;
+    }
+
+    div[class~="info-page"] .sign-in-nav {
+        width: auto;
+        padding-right: 10px;
+        margin: auto 0;
+    }
+
+    div[class~="info-page"] .sign-in-nav ul {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    div[class~="info-page"] .sign-in-nav ul li a {
+        font-size: 25px
+    }
+
+    div[class~="info-page"] .content-container {
+        width: 100vw;
+    }
+
+    div[class~="info-page"] .content-container h1 {
+        padding: 0;
+        text-align: center;
+        font-size: 60px;
+        color: var(--text-color-secondary);
+        background-image: linear-gradient(90deg, #00000000, #000000, #00000000);
+    }
+
+    div[class~="info-page"] footer nav {
+        margin: auto;
+        width: auto;
+        justify-content: space-between;
+    }
+}

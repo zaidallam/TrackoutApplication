@@ -1,0 +1,24 @@
+/***************************************** 
+ * Organized by sequence in corresponding HTML
+ *****************************************/
+
+#Login .error-message {
+    color: white;
+    background-color: #ff6d6d;
+    border-color: red;
+    border-width: 5px;
+    margin: 0px auto 7px auto;
+    padding: 7px;
+    width: 50%;
+}
+
+@media only screen and (max-width: 768px) {
+    /* Nothing here at the moment */
+} 
+
+@media only screen and (max-width: 500px) {
+    #Login .error-message {
+        width: 75%;
+        padding: 3px;
+    }
+}

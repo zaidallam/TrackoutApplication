@@ -1,0 +1,220 @@
+/***************************************** 
+ * Organized by sequence in corresponding HTML
+ *****************************************/
+
+/* body {
+    min-height: fit-content;
+    min-width: fit-content;
+} */
+
+div[class~="secondary-page"].page-container {
+    grid-template-rows: fit-content(100%) auto fit-content(100%);
+    background-color: white;
+    min-height: 100vh;
+}
+
+div[class~="secondary-page"] header[class="grid-3"] {
+    grid-template-columns: fit-content(100%) auto fit-content(100%);
+    background-color: var(--background-color-secondary);
+    height: fit-content;
+}
+
+div[class~="secondary-page"] .logo-container {
+    display: block;
+    width: 90px;
+}
+
+div[class~="secondary-page"] .logo-container img {
+    display: block;
+    padding: 7px 14px 7px 21px;
+    width: 100%;
+}
+
+div[class~="secondary-page"] .home-nav {
+    align-self: center;
+    margin-top: 7px;
+}
+
+div[class~="secondary-page"] .home-nav div div {
+    position: relative;
+    margin-right: 14px;
+    justify-content: center;
+    align-items: center;
+}
+
+div[class~="secondary-page"] .home-nav div div a {
+    color: var(--text-color);
+    font-size: 35px;
+    z-index: 1;
+}
+
+div[class~="secondary-page"] .home-nav div div[class="flex-row red-text"] a {
+    color: var(--text-color-secondary);
+}
+
+div[class~="secondary-page"] .nav-selector {
+    position: absolute;
+    width: 50px;
+    padding-bottom: 6px;
+}
+
+div[class~="secondary-page"] .nav-selector-white {
+    position: absolute;
+    width: 15px;
+    padding-bottom: 50px;
+}
+
+div[class~="secondary-page"] .sign-in-nav {
+    width: 200px;
+    align-self: center;
+    margin-top: 11px;
+    padding-right: 20px;
+}
+
+div[class~="secondary-page"] .sign-in-nav ul {
+    justify-content: space-between;
+}
+
+div[class~="secondary-page"] .sign-in-nav ul li {
+    display: inline;
+}
+
+div[class~="secondary-page"] .sign-in-nav ul li a {
+    display: inline-block;
+    color: var(--text-color);
+    font-size: 35px;
+}
+
+div[class~="secondary-page"] .sign-in-nav ul li[class="red-text"] a {
+    color: var(--text-color-secondary);
+}
+
+div[class~="secondary-page"] .content-container h1 {
+    text-align: center;
+    margin: 0;
+    font-size: 60px;
+    color: var(--text-color-secondary);
+    background-image: linear-gradient(90deg, var(--background-color), #000000, var(--background-color));
+}
+
+div[class~="secondary-page"] .page-content {
+    background-color: white;
+    text-align: center;
+    padding: 14px;
+    height: fit-content;
+    max-width: 100%;
+    color: black;
+}
+
+div[class~="secondary-page"] .page-content h2 {
+    font-size: 40px;
+}
+
+div[class~="secondary-page"] .page-content p {
+    font-size: 24px;
+}
+
+div[class~="secondary-page"] .page-content input, .page-content textarea {
+    width: 50%;
+    margin-bottom: 10px;
+    font-size: 32px;
+}
+
+div[class~="secondary-page"] .page-content button {
+    width: 50%;
+    font-size: 32px;
+}
+
+div[class~="secondary-page"] footer {
+    background-color: var(--background-color-secondary);
+    padding: 14px;
+    height: fit-content;
+    justify-content: space-between;
+}
+
+div[class~="secondary-page"] footer nav {
+    margin: auto;
+    width: 400px;
+    justify-content: space-between;
+}
+
+div[class~="secondary-page"] footer nav p {
+    display: block;
+    color: var(--text-color);
+    opacity: 0.3;
+    margin: auto;
+}
+
+div[class~="secondary-page"] footer nav p a {
+    display: block;
+    color: var(--text-color);
+}
+
+@media only screen and (max-width: 768px) {
+    /* Nothing here at the moment */
+} 
+
+@media only screen and (max-width: 500px) {
+    
+    div[class~="secondary-page"] .mobile-hide {
+        display: none;
+    }
+    
+    div[class~="secondary-page"] header {
+        width: 100vw;
+        height: 120px;
+    }
+
+    div[class~="secondary-page"] .logo-container img {
+        display: block;
+        height: 100%;
+    }
+
+    div[class~="secondary-page"] .home-nav {
+        padding-right: 30px;
+    }
+
+    div[class~="secondary-page"] .home-nav div {
+        flex-wrap: wrap;
+    }
+
+    div[class~="secondary-page"] .home-nav div div a {
+        font-size: 20px;
+    }
+
+    div[class~="secondary-page"] .sign-in-nav {
+        width: auto;
+        padding-right: 10px;
+        margin: auto 0;
+    }
+
+    div[class~="secondary-page"] .sign-in-nav ul {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    div[class~="secondary-page"] .sign-in-nav ul li a {
+        font-size: 25px
+    }
+
+    div[class~="secondary-page"] .content-container {
+        width: 100vw;
+    }
+
+    div[class~="secondary-page"] .page-content input, .page-content textarea {
+        width: 75%;
+        margin-bottom: 7px;
+        font-size: 24px;
+    }
+
+    div[class~="secondary-page"] .page-content button {
+        width: 75%;
+        font-size: 24px;
+    }
+
+    div[class~="secondary-page"] footer nav {
+        margin: auto;
+        width: auto;
+        justify-content: space-between;
+    }
+}

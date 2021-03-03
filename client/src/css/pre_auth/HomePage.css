@@ -1,0 +1,168 @@
+/***************************************** 
+ * Organized by sequence in corresponding HTML
+ *****************************************/
+
+#home-page.page-container {
+    grid-template-columns: 270px minmax(270px, auto);
+    background-color: var(--background-color);
+    min-height: 100vh;
+}
+
+#home-page header {
+    background-color: var(--background-color);
+    grid-auto-rows: fit-content(100%) auto fit-content(100%);
+    padding: 5%;
+}
+
+#home-page .logo-container {
+    grid-template-columns: 1fr 4fr;
+    gap: 5%;
+    margin-bottom: 8%;
+}
+
+#home-page .logo-container img {
+    align-self: center;
+    width: 100%;
+}
+
+#home-page .logo-container h1 {
+    color: var(--text-color);
+    align-self: center;
+    font-size: 48px;
+    margin: 0;
+    padding-top: 4%;
+}
+
+#home-page .logo-container h1 span {
+    color: red;
+}
+
+#home-page .main-nav {
+   align-self: center;
+   margin: 8% 0;
+   line-height: 1.5em;
+}
+
+#home-page .main-nav ul * {
+    font-size: 200%;
+}
+
+#home-page .main-nav ul li {
+    margin-bottom: 10%;
+}
+
+#home-page .main-nav ul li:last-child {
+    margin-bottom: 0;
+}
+
+#home-page .main-nav ul li a {
+    color: var(--text-color);
+}
+
+#home-page .main-nav ul li[class="red-text"] a {
+    color: var(--text-color-secondary)
+}
+
+#home-page .image-section {
+    background-image: linear-gradient(#00000055, #00000055), url("FrontPage.jpg");
+    background-size: cover;
+    background-position-x: center;
+    position: relative;
+    min-width: fit-content;
+}
+
+#home-page .image-section nav {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    width: 150px;
+    font-size: 30px;
+}
+
+#home-page .sign-in-nav-animation {
+    animation-name: slide-up-sign-in;
+    animation-duration: var(--load-animation-time);
+}
+
+@keyframes slide-up-sign-in {
+    0% {opacity: 0; top: 8%;}
+    100% {opacity: 1; top: 2%;}
+}
+
+#home-page .image-section nav ul {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#home-page .image-section nav ul li {
+    flex-grow: 1;
+    font-size: 1em;
+}
+
+#home-page .image-section nav ul li a {
+    display: block;
+    color: var(--text-color);
+    width: 100%;
+    font-size: 1em;
+}
+
+#home-page .image-section nav ul li[class="red-text"] a{
+    color: var(--text-color-secondary)
+}
+
+#home-page .image-section h2 {
+    align-self: center;
+    padding: 20px;
+    font-size: 100px;
+    line-height: 100px;
+    color: var(--text-color);
+}
+
+#home-page .image-section h2 span {
+    color: var(--text-color-secondary);
+}
+
+@media only screen and (max-width: 768px) {
+    /* Nothing here at the moment */
+} 
+
+@media only screen and (max-width: 500px) {
+    #home-page .mobile-hide {
+        display: none;
+    }
+
+    #home-page .mobile-only {
+        display: block;
+    }
+
+    #home-page body {
+        background-color: var(--background-color);
+    }
+
+    #home-page header {
+        width: 100vw;
+    }
+
+    #home-page .logo-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
+    }
+
+    #home-page .logo-container * {
+       text-align: center;
+    }
+
+    #home-page .logo-container img {
+        width: 25%;
+        justify-self: center;
+    }
+
+    #home-page .main-nav {
+        align-self: initial;
+    }
+
+    #home-page .main-nav ul li {
+        text-align: center;
+    }
+}

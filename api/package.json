@@ -1,0 +1,32 @@
+{
+  "name": "trackout_api",
+  "version": "0.0.1",
+  "description": "Trackout: The workout tracking app to rule all other workout tracking apps.",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zaidallam/Trackout-Application.git"
+  },
+  "author": "Zaid Allam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zaidallam/Trackout-Application/issues"
+  },
+  "homepage": "https://github.com/zaidallam/Trackout-Application#readme",
+  "dependencies": {
+    "basic-auth": "^2.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.15",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
