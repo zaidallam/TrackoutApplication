@@ -11,6 +11,10 @@ import { Support } from './components/pre_auth/Support';
 import { FAQ } from './components/pre_auth/FAQ';
 import { Login } from './components/pre_auth/Login';
 import { Signup } from './components/pre_auth/Signup';
+import { Dashboard } from './components/post_auth/Dashboard';
+import { Track } from './components/post_auth/Track';
+import { Logs } from './components/post_auth/Logs';
+import { Templates } from './components/post_auth/Templates';
 
 
 function App() {
@@ -35,7 +39,10 @@ function App() {
       }}/>
 
       {/* Post Auth Routes */}
-      
+      <Route path='/app/' exact component={Dashboard}/>
+      <Route path='/app/track' exact component={Track}/>
+      <Route path='/app/logs' exact component={Logs}/>
+      <Route path='/app/templates' exact component={Templates}/>
 
     </Router>
   );

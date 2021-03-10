@@ -4,7 +4,7 @@ import { NavBar } from './NavBar'
 import '../../css/pre_auth/SecondaryPages.css'
 import '../../css/pre_auth/Login.css'
 
-export const Login = () => {
+export const Login = () => {    
     return (
         <>
         <div className="secondary-page grid-1 page-container" id="Login">

@@ -1,0 +1,384 @@
+/***************************************** 
+ * Organized by sequence in corresponding HTML
+ *****************************************/
+
+#templates.page-container {
+    grid-template-columns: 270px minmax(1105px, auto);
+    background-color: white;
+    min-height: 100vh;
+}
+
+#templates header {
+    background-color: var(--background-color);
+    grid-auto-rows: fit-content(100%) auto fit-content(100%);
+    padding: 5%;
+    height: 100%;
+}
+
+#templates .logo-container {
+    grid-template-columns: 1fr 4fr;
+    gap: 5%;
+    margin-bottom: 8%;
+}
+
+#templates .logo-container img {
+    align-self: center;
+    width: 100%;
+}
+
+#templates .logo-container h1 {
+    color: var(--text-color);
+    align-self: center;
+    font-size: 48px;
+    margin: 0;
+    padding-top: 4%;
+}
+
+#templates .logo-container h1 span {
+    color: red;
+}
+
+#templates .main-nav {
+   align-self: center;
+   margin: 8% 0;
+   line-height: 1.5em;
+}
+
+#templates .main-nav ul * {
+    font-size: 200%;
+}
+
+#templates .main-nav ul li {
+    margin-bottom: 10%;
+}
+
+#templates .main-nav ul li:last-child {
+    margin-bottom: 0;
+}
+
+#templates .main-nav ul li a {
+    color: var(--text-color);
+}
+
+#templates .main-nav ul li[class="red-text"] a {
+    color: var(--text-color-secondary)
+}
+
+#templates .content-section {
+    background-color: white;
+    position: relative;
+    min-width: fit-content;
+    grid-auto-rows: fit-content(100%) fit-content(100%) auto fit-content(100%);
+    height: 100%;
+    overflow: scroll;
+}
+
+#templates .content-section h2 {
+    color: var(--text-color-secondary);
+    margin: 2% 0 0 2%;
+    font-size: 50px;
+    height: 50px;
+    width: fit-content;
+}
+
+#templates .log-out {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    margin-left: 20px;
+    width: fit-content;
+    font-size: 30px;
+}
+
+#templates .log-out ul {
+    width: 100%;
+}
+
+#templates .log-out ul li {
+    font-size: 1em;
+}
+
+#templates .log-out ul li a {
+    display: block;
+    color: var(--text-color);
+    width: 100%;
+    font-size: 1em;
+}
+
+#templates .log-out ul li[class="red-text"] a{
+    color: var(--text-color-secondary)
+}
+
+/***************************************** 
+ * TEMPLATE LIST STYLES
+ *****************************************/
+
+#templates .new-template {
+    width: 200px;
+    height: 40px;
+    margin-left: 2%;
+    font-size: 30px;
+}
+
+#templates .filters {
+    height: 50px;
+    padding-left: 2%;
+    align-items: center;
+    font-size: 25px;
+}
+
+#templates .filters label {
+    font-size: 30px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+#templates .filters select {
+    background-color: #CCC;
+    border-width: 0;
+}
+
+#templates .filters button {
+    padding: 3px 20px;
+}
+
+#templates .templates-list {
+    padding-left: 2%;
+    gap: 3%;
+    margin: 20px 2%;
+    grid-template-rows: repeat(3, 1fr);
+    height: 710px; 
+}
+
+#templates .template-container {
+    border-width: 3px;
+    border-color: black;
+    border-style: solid;
+    grid-template-rows: repeat(3, 1fr);
+    align-items: center;
+}
+
+#templates .template-container > * {
+    padding: 8px 12px 0px;
+    height: 100%
+}
+
+#templates .template-title {
+    background-color: black;
+    color: white;
+    font-size: 40px;
+}
+
+#templates .template-content {
+    justify-content: space-between;
+    min-width: 315px;
+}
+
+#templates .template-content p {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#templates .template-nav {
+    height: 50px;
+    padding-left: 2%;
+    height: fit-content;
+    margin-bottom: 10px;
+}
+
+#templates .template-nav ul {
+    width: fit-content;
+    margin: auto;
+}
+
+#templates .template-nav ul li {
+    display: block;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    margin: 0 5px;
+    background-color: #CCC;
+    padding-top: 4px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#templates .template-nav ul li[class="nav-arrow"] {
+    width: 20px;
+}
+
+#templates .template-nav ul li[class="nav-arrow"] img {
+    height: 80%;
+}
+
+#templates .template-nav ul li:hover {
+    background-color: #AAA;
+}
+
+
+@media only screen and (max-width: 768px) {
+    /* Nothing here at the moment */
+} 
+
+@media only screen and (max-width: 500px) {
+    #templates .mobile-hide {
+        display: none;
+    }
+    
+    #templates .mobile-only {
+        display: block;
+    }
+   
+    #templates.page-container {
+       grid-template-columns: 1fr;
+       grid-template-rows: fit-content(100%) auto fit-content(100%);
+       height: 100vh;
+    }
+
+    #templates .mobile-header {
+        background-color: var(--background-color);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 5px;
+        height: 50px;
+        width: 100vw;
+    }
+    
+    #templates .logo-container {
+        grid-auto-columns: auto auto;
+        width: 40%;
+        margin-left: 5px;
+        gap: 5%;
+        margin-bottom: 0;
+    }
+    
+    #templates .logo-container img {
+        align-self: center;
+        height: 100%;
+    }
+    
+    #templates .logo-container h1 {
+        display: block;
+        width: 100%;
+        color: var(--text-color);
+        align-self: center;
+        font-size: 24px;
+        margin: 0;
+        padding-top: 4%;
+    }
+    
+    #templates .logo-container h1 span {
+        color: red;
+    }
+
+    #templates .logout {
+        color: white;
+        align-self: center;
+        margin-right: 5px;
+        font-size: 24px;
+    }
+
+    #templates .content-section {
+        background-color: white;
+        position: relative;
+        width: 100%;
+        grid-template-rows: fit-content(100%) auto;
+        height: 100%;
+        overflow: scroll;
+        gap: 2%;
+    }
+    
+    #templates .content-section h2 {
+        color: var(--text-color-secondary);
+        margin: 2%;
+        font-size: 50px;
+        height: 50px;
+    }
+    
+    #templates .mobile-nav {
+        background-color: var(--background-color);
+        height: 50px;
+        width: 100vw;
+    }
+
+    #templates .mobile-nav div {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 50px;
+        height: 50px;
+        padding: 0 6%;
+        gap: 6%;
+        align-items: center;
+    }
+
+    #templates .mobile-nav div a {
+        height: 60%;
+    }
+
+    #templates .mobile-nav div a img {
+       height: 100%;
+    }
+
+    /***************************************** 
+    * LOG LIST STYLES
+    *****************************************/
+    #templates .filters {
+        display: block;
+        height: fit-content;
+        width: fit-content;
+    }
+
+    #templates .filters button {
+        margin-top: 10px;
+    }
+
+    #templates .templates-list {
+        padding-left: 2%;
+        gap: 3%;
+        margin: 20px 2%;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        height: 2065px; 
+    }
+
+    #templates .template-container {
+        width: 80vw;
+        justify-self: center;
+    }
+
+    #templates .template-content {
+        min-width: 100%;
+    }
+
+    #templates .template-content p {
+        font-size: 30px;
+    }
+
+    #templates .template-nav ul {
+        margin: 0px;
+        margin-left: 10px;
+        margin-bottom: 30px;
+    }
+
+    #templates .template-nav ul li {
+        display: block;
+        font-size: 22px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        margin: 0 3px;
+        background-color: #CCC;
+        padding-top: 3px;
+    }
+    
+    #templates .template-nav ul li[class="nav-arrow"] {
+        width: 20px;
+    }
+    
+    #templates .template-nav ul li[class="nav-arrow"] img {
+        height: 80%;
+    }
+
+}

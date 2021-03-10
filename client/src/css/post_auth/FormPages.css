@@ -1,0 +1,80 @@
+div[class~="form-page"] .content-section {
+    min-width: 1145px;
+}
+
+div[class~="form-page"] select {
+    background-color: #CCC;
+    border-width: 0;
+}
+
+div[class~="form-page"] input {
+    background-color: #CCC;
+    border-width: 0;
+}
+
+div[class~="form-page"] .exercise-secondary {
+    width: 80px;
+}
+
+div[class~="form-page"] .input-form {
+    margin: 0 2%;
+}
+
+div[class~="form-page"] .input-form * {
+    font-size: 25px;
+}
+
+div[class~="form-page"] .input-form button:not(.remove-exercise) {
+    width: 100px;
+    height: 45px;
+}
+
+div[class~="form-page"] .remove-exercise {
+    width: 100px;
+    height: 40px;
+}
+
+div[class~="form-page"] .type-fieldset select:not(.add-exercise) {
+    position: relative;
+    height: 28px;
+    top: 5px;
+}
+
+div[class~="form-page"] input[type="date"] {
+    height: 28px;
+}
+
+div[class~="form-page"] #save-button {
+    width: 200px;
+}
+
+@media only screen and (max-width: 768px) {
+    div[class~="form-page"] .content-section {
+        min-width: 100%;
+        max-height: 100vh;
+    }
+} 
+
+@media only screen and (max-width: 500px) {
+    div[class~="form-page"] .content-section {
+        min-width: 0;
+    }
+
+    div[class~="form-page"] .exercise-secondary {
+        margin-top: 10px;
+    } 
+
+    div[class~="form-page"] .remove-exercise {
+        height: 30px;
+        position: relative;
+        top: 3px;
+    }
+
+    div[class~="form-page"] .input-form {
+        margin-right: 2%;
+    }
+
+    div[class~="form-page"] input {
+        margin-right: 2px;
+    }
+}

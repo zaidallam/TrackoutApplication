@@ -1,0 +1,231 @@
+/***************************************** 
+ * General Setup
+ *****************************************/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0.03em;
+}
+
+body {
+    color: black;
+    font-family: 'Teko';
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+img {
+    width: 100%;
+}
+
+.hide {
+    display: none;
+}
+
+.mobile-only {
+    display: none
+}
+
+/***************************************** 
+ * Grid and Flex
+ *****************************************/
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-1 {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/***************************************** 
+ * Anchors and Buttons
+ *****************************************/
+a {
+    transition: 0.3s;
+}
+
+a:hover {
+    opacity: 0.5;
+}
+
+button {
+    background-color: red;
+    border-color: red;
+    color: var(--text-color);
+    transition: 0.3s;
+    cursor: pointer;
+    border-width: 0;
+    padding: 3px;
+}
+
+button:hover {
+    opacity: 0.5;
+}
+
+/***************************************** 
+ * Animations
+ *****************************************/
+:root {
+    --load-animation-time: 2s;
+}
+
+.fade-in {
+    animation-name: fade-in;
+    animation-duration: var(--load-animation-time);
+}
+
+.slide-up {
+    position: relative;
+    animation-name: slide-up;
+    animation-duration: var(--load-animation-time);
+}
+
+.nav-selector-animation {
+    animation-name: nav-selector;
+    animation-duration: 1s;
+}
+
+@keyframes fade-in {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes slide-up {
+    0% {opacity: 0; top: 40px;}
+    100% {opacity: 1; top: 0px;}
+}
+
+@keyframes nav-selector {
+    0% {
+        opacity: 0; 
+        transform: rotateY(180deg); 
+    }
+    100% {
+        opacity: 1; 
+        transform: rotateY(0deg);
+    }
+}
+
+/***************************************** 
+ * Margin and Padding
+ *****************************************/
+.my1 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.my2 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.my3 {
+    margin-top: 45px;
+    margin-bottom: 45px;
+}
+
+.my4 {
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.my5 {
+    margin-top: 75px;
+    margin-bottom: 75px;
+}
+
+.m1 {
+    margin: 15px;
+}
+
+.m2 {
+    margin: 30px;
+}
+
+.m3 {
+    margin: 45px;
+}
+
+.m4 {
+    margin: 60px;
+}
+
+.m5 {
+    margin: 75px;
+}
+
+.py1 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.py2 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.py3 {
+    padding-top: 45px;
+    padding-bottom: 45px;
+}
+
+.py4 {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.py5 {
+    padding-top: 75px;
+    padding-bottom: 75px;
+}
+
+.p1 {
+    padding: 15px;
+}
+
+.p2 {
+    padding: 30px;
+}
+
+.p3 {
+    padding: 45px;
+}
+
+.p4 {
+    padding: 60px;
+}
+
+.p5 {
+    padding: 75px;
+}
