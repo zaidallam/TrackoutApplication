@@ -11,7 +11,7 @@ export const Login = () => {
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const [loginError, setLoginError] = useState("hide");
-    const { setIsAuth, isAuth, checkAuth } = useContext(Context);
+    const { setIsAuth, isAuth, setAuthUser } = useContext(Context);
 
     const login = () => {
         axios({
@@ -26,9 +26,8 @@ export const Login = () => {
         .then((res) => {
             res.config.data = "hidden";
             console.log(res); 
-        })
-        .then(() => {
             setLoginError("hide");
+            setAuthUser(loginUsername);
             setIsAuth(true);
         })
         .catch(() => {

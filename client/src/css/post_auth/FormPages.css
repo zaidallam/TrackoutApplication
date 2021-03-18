@@ -22,6 +22,7 @@ div[class~="form-page"] .input-form {
 
 div[class~="form-page"] .input-form * {
     font-size: 25px;
+    margin-right: 2px;
 }
 
 div[class~="form-page"] .input-form button:not(.remove-exercise) {

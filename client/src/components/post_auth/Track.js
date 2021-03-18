@@ -2,14 +2,181 @@ import React, { useState, useContext } from 'react'
 import { Context } from '../../Context'
 import { NavBar } from './NavBar'
 import { NavBarMobile } from './NavBarMobile'
+import { Cardio, Cooldown, Mobility, Strength, Warmup } from './helper_components/workouts'
 import { Link, Redirect } from 'react-router-dom'
 import '../../css/post_auth/Track.css'
 import '../../css/post_auth/FormPages.css'
 import '../../css/post_auth/General.css'
 
+let warmupBool = false;
+let cooldownBool = false;
+let mobilityBool = false;
+
 export const Track = () => {
 
-    const { isAuth, logout} = useContext(Context)
+    const { isAuth, logout } = useContext(Context)
+
+    const [selectedTrainingType, setSelectedTrainingType] = useState('');
+    const [activeTrainingTypes, setActiveTrainingTypes] = useState([
+        {
+            name: 'warmup',
+            status: false
+        },
+        {
+            name: 'main',
+            index: 0,
+            training: [
+
+            ]
+        },
+        {
+            name: 'cooldown',
+            status: false
+        },
+        {
+            name: 'mobility',
+            status: false
+        }
+    ]);
+
+    const updateTrainingTypesState = (trainingType, removeIndex = true) => {
+        if (trainingType === 'strength' || trainingType === 'cardio') {
+            
+            if (removeIndex === true) {
+                let newTrainingType = {}; 
+
+                if (trainingType === 'strength') {
+                    newTrainingType = {
+                        index: activeTrainingTypes[1].index,
+                        name: 'strength',
+                        status: true
+                    }
+                }
+                if (trainingType === 'cardio') {
+                    newTrainingType = {
+                        index: activeTrainingTypes[1].index,
+                        name: 'cardio',
+                        status: true
+                    }
+                }
+
+                setActiveTrainingTypes([
+                    {
+                        name: 'warmup',
+                        status: warmupBool
+                    },
+                    {
+                        name: 'main',
+                        index: activeTrainingTypes[1].index + 1,
+                        training: [
+                            ...activeTrainingTypes[1].training,
+                            newTrainingType
+                        ]
+                    },
+                    {
+                        name: 'cooldown',
+                        status: cooldownBool
+                    },
+                    {
+                        name: 'mobility',
+                        status: mobilityBool
+                    }
+                ]);
+
+            } else {
+
+                let newTrainingArray = activeTrainingTypes[1].training.filter( exercise => exercise.index !== removeIndex) ;
+
+                setActiveTrainingTypes([
+                    {
+                        name: 'warmup',
+                        status: warmupBool
+                    },
+                    {
+                        name: 'main',
+                        index: activeTrainingTypes[1].index,
+                        training: newTrainingArray
+                    },
+                    {
+                        name: 'cooldown',
+                        status: cooldownBool
+                    },
+                    {
+                        name: 'mobility',
+                        status: mobilityBool
+                    }
+                ])
+            }
+            
+        } else {
+
+            if (trainingType === 'warmup') {
+                warmupBool = true;
+            }
+            if (trainingType === 'cooldown') {
+                cooldownBool = true;
+            }
+            if (trainingType === 'mobility') {
+                mobilityBool = true;
+            }
+            if (trainingType === 'xwarmup') {
+                warmupBool = false;
+            }
+            if (trainingType === 'xcooldown') {
+                cooldownBool = false;
+            }
+            if (trainingType === 'xmobility') {
+                mobilityBool = false;
+            }
+
+
+            setActiveTrainingTypes([
+                {
+                    name: 'warmup',
+                    status: warmupBool
+                },
+                {
+                    name: 'main',
+                    index: activeTrainingTypes[1].index,
+                    training: activeTrainingTypes[1].training
+                },
+                {
+                    name: 'cooldown',
+                    status: cooldownBool
+                },
+                {
+                    name: 'mobility',
+                    status: mobilityBool
+                }
+            ])
+        }
+    }
+
+    const renderTrainingType = (trainingType) => {
+                
+        if (trainingType.status) {
+            if (trainingType.name === 'warmup') {
+                return (<Warmup updateTrainingTypesState={updateTrainingTypesState} key={1} />)
+            }
+            if (trainingType.name === 'strength') {
+                return (<Strength updateTrainingTypesState={updateTrainingTypesState} index={trainingType.index} key={trainingType.index} />)
+            }
+            if (trainingType.name === 'cardio') {
+                return (<Cardio updateTrainingTypesState={updateTrainingTypesState} index={trainingType.index} key={trainingType.index} />)
+            }
+            if (trainingType.name === 'cooldown') {
+                return (<Cooldown updateTrainingTypesState={updateTrainingTypesState} key={2} />)
+            }
+            if (trainingType.name === 'mobility') {
+                return (<Mobility updateTrainingTypesState={updateTrainingTypesState} key={3} />)
+            }
+        }
+        if (trainingType.index) {
+            if (trainingType.training.length > 0) {
+                return trainingType.training.map(trainingType => renderTrainingType(trainingType))
+            }
+        }
+    }
 
     if(isAuth) {
         return (
@@ -24,19 +191,19 @@ export const Track = () => {
                     </nav>
                     <h2>TRACK</h2>
                     <div className="input-form">
-                        <select defaultValue="" name="type-select" id="type-select">
+                        <select defaultValue="" name="type-select" id="type-select" onChange={e => setSelectedTrainingType(e.target.value)}>
                             <option value="" disabled hidden>Choose a Training Type</option>
-                            <option value="Warmup">Warmup</option>
-                            <option value="Strength">Strength</option>
-                            <option value="Cardio">Cardio</option>
-                            <option value="Mobility">Mobility</option>
-                            <option value="Cooldown">Cooldown</option>
+                            <option value="warmup">Warmup</option>
+                            <option value="strength">Strength</option>
+                            <option value="cardio">Cardio</option>
+                            <option value="cooldown">Cooldown</option>
+                            <option value="mobility">Mobility</option>
                         </select>
-                        <button>
+                        <button onClick={() => updateTrainingTypesState(selectedTrainingType)}>
                             ADD
                         </button>
                         <form>
-                            <fieldset className="type-fieldset warmup-fieldset">
+                            <fieldset className="type-fieldset info-fieldset">
                                 <legend>WORKOUT INFO</legend>
                                 <input type="text" id="info-title" name="info-title" placeholder="Title" /><br className="mobile-only" />
                                 <input className="exercise-secondary" type="number" id="info-hours" name="info-hours" placeholder="Hours" /><br className="mobile-only" />
@@ -50,150 +217,7 @@ export const Track = () => {
                                 <button id="save-button">SAVE SESSION TO LOG</button>
                             </fieldset>
 
-                            <fieldset className="type-fieldset warmup-fieldset">
-                                <legend>WARMUP</legend>
-                                <select defaultValue="" className="add-exercise" name="add-exercise" id="add-exercise-warmup">
-                                    <option value="" disabled  hidden>Choose Template</option>
-                                    <option value="New">New</option>
-                                    <optgroup label="Templates">
-                                        <option value="example">Example</option>
-                                    </optgroup>
-                                </select>
-                                <button>
-                                    ADD
-                                </button><br /><br className="mobile-only" />
-                                <input className="exercise-name" type="text" id="warmup-1" name="warmup-1" placeholder="Exercise Name" /><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="warmup-1-weight" name="warmup-1-weight" placeholder="Weight" />
-                                <select defaultValue="" name="warmup-1-weight-units" id="warmup-1-weight-units">
-                                    <option value=""></option>
-                                    <option value="lb">lb</option>
-                                    <option value="kg">kg</option>
-                                </select><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="warmup-1-vol" name="warmup-1-vol" placeholder="Volume" />
-                                <select defaultValue="" name="warmup-1-vol-units" id="warmup-1-vol-units">
-                                    <option value=""></option>
-                                    <option value="Reps">Reps</option>
-                                    <option value="Seconds">Seconds</option>
-                                    <option value="Minutes">Minutes</option>
-                                </select><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="warmup-1-sets" name="warmup-1-sets" placeholder="Sets" />
-                                <button className="remove-exercise">REMOVE</button><br className="mobile-only" />
-                            </fieldset>
-
-                            <fieldset className="type-fieldset strength-fieldset">
-                                <legend>STRENGTH</legend>
-                                <select defaultValue="" className="add-exercise" name="add-exercise" id="add-exercise-strength">
-                                    <option value="" disabled  hidden>Choose Template</option>
-                                    <option value="New">New</option>
-                                    <optgroup label="Templates">
-                                        <option value="example">Example</option>
-                                    </optgroup>
-                                </select>
-                                <button>
-                                    ADD
-                                </button><br /><br className="mobile-only" />
-                                <input className="exercise-name" type="text" id="strength-1" name="strength-1" placeholder="Exercise Name" /><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="strength-1-weight" name="strength-1-weight" placeholder="Weight" />
-                                <select defaultValue="" name="strength-1-weight-units" id="strength-1-weight-units">
-                                    <option value=""></option>
-                                    <option value="lb">lb</option>
-                                    <option value="kg">kg</option>
-                                </select><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="strength-1-vol" name="strength-1-vol" placeholder="Volume" />
-                                <select defaultValue="" name="strength-1-vol-units" id="strength-1-vol-units">
-                                    <option value=""></option>
-                                    <option value="Reps">Reps</option>
-                                    <option value="Seconds">Seconds</option>
-                                    <option value="Minutes">Minutes</option>
-                                </select><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="strength-1-sets" name="strength-1-sets" placeholder="Sets" /><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="strength-1-Rest" name="strength-1-Rest" placeholder="Set Rest" /><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="strength-1-Rest Final" name="strength-1-Rest Final" placeholder="End Rest" />
-                                <select defaultValue="" name="strength-1-Rest-units" id="strength-1-Rest-units">
-                                    <option value=""></option>
-                                    <option value="Reps">Reps</option>
-                                    <option value="Seconds">Seconds</option>
-                                    <option value="Minutes">Minutes</option>
-                                </select>
-                                <button className="remove-exercise">REMOVE</button><br className="mobile-only" />
-                            </fieldset>
-
-                            <fieldset className="type-fieldset cardio-fieldset">
-                                <legend>CARDIO</legend>
-                                <select defaultValue="" className="add-exercise" name="add-exercise" id="add-exercise-cardio">
-                                    <option value="" disabled  hidden>Choose Template</option>
-                                    <option value="New">New</option>
-                                    <optgroup label="Templates">
-                                        <option value="example">Example</option>
-                                    </optgroup>
-                                </select>
-                                <button>
-                                    ADD
-                                </button><br /><br className="mobile-only" />
-                                <input className="exercise-name" type="text" id="cardio-1" name="cardio-1" placeholder="Exercise Name" /><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="cardio-1-distance" name="cardio-1-distance" placeholder="Distance" />
-                                <select defaultValue="" name="cardio-1-distance-units" id="cardio-1-distance-units">
-                                    <option value=""></option>
-                                    <option value="mi">mi</option>
-                                    <option value="km">km</option>
-                                </select><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="cardio-1-pace-min" name="cardio-1-pace-min" placeholder="Pace Min" /><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="cardio-1-pace-sec" name="cardio-1-pace-sec" placeholder="Pace Sec" />
-                                <button className="remove-exercise">REMOVE</button><br className="mobile-only" />
-                            </fieldset>
-
-                            <fieldset className="type-fieldset mobility-fieldset">
-                                <legend>MOBILITY</legend>
-                                <select defaultValue="" className="add-exercise" name="add-exercise" id="add-exercise-mobility">
-                                    <option value="" disabled  hidden>Choose Template</option>
-                                    <option value="New">New</option>
-                                    <optgroup label="Templates">
-                                        <option value="example">Example</option>
-                                    </optgroup>
-                                </select>
-                                <button>
-                                    ADD
-                                </button><br /><br className="mobile-only" />
-                                <input className="exercise-name" type="text" id="mobility-1" name="mobility-1" placeholder="Exercise Name" /><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="mobility-1-time" name="mobility-1-time" placeholder="Time" />
-                                <select defaultValue="" name="mobility-1-time-units" id="mobility-1-time-units">
-                                    <option value=""></option>
-                                    <option value="mi">Seconds</option>
-                                    <option value="km">Minutes</option>
-                                </select><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="mobility-1-pace-sets" name="mobility-1-pace-sets" placeholder="Sets" />
-                                <button className="remove-exercise">REMOVE</button><br className="mobile-only" />
-                            </fieldset>
-
-                            <fieldset className="type-fieldset cooldown-fieldset">
-                                <legend>COOLDOWN</legend>
-                                <select defaultValue="" className="add-exercise" name="add-exercise" id="add-exercise-cooldown">
-                                    <option value="" disabled  hidden>Choose Template</option>
-                                    <option value="New">New</option>
-                                    <optgroup label="Templates">
-                                        <option value="example">Example</option>
-                                    </optgroup>
-                                </select>
-                                <button>
-                                    ADD
-                                </button><br /><br className="mobile-only" />
-                                <input className="exercise-name" type="text" id="cooldown-1" name="cooldown-1" placeholder="Exercise Name" /><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="cooldown-1-weight" name="cooldown-1-weight" placeholder="Weight" />
-                                <select defaultValue="" name="cooldown-1-weight-units" id="cooldown-1-weight-units">
-                                    <option value=""></option>
-                                    <option value="lb">lb</option>
-                                    <option value="kg">kg</option>
-                                </select><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="cooldown-1-vol" name="cooldown-1-vol" placeholder="Volume" />
-                                <select defaultValue="" name="cooldown-1-vol-units" id="cooldown-1-vol-units">
-                                    <option value=""></option>
-                                    <option value="Reps">Reps</option>
-                                    <option value="Seconds">Seconds</option>
-                                    <option value="Minutes">Minutes</option>
-                                </select><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="cooldown-1-sets" name="cooldown-1-sets" placeholder="Sets" />
-                                <button className="remove-exercise">REMOVE</button><br className="mobile-only" />
-                            </fieldset>
+                            {activeTrainingTypes.map(trainingType => renderTrainingType(trainingType))}
 
                         </form>
                     </div> 
