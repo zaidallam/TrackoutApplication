@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react'
+import React, { useContext} from 'react'
 import { Redirect } from 'react-router-dom'
 import { Context } from '../../Context'
 import { Footer } from './Footer'

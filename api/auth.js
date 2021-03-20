@@ -3,6 +3,6 @@ module.exports = {
         if (req.isAuthenticated()) {
             return next()
         }
-        res.json({message: "You don't have permission to access this resource"})
+        res.status(400).json({message: "You don't have permission to access this resource"})
     } 
 }

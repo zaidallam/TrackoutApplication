@@ -20,9 +20,6 @@ import { Templates } from './components/post_auth/Templates';
 
 import axios from 'axios';
 
-
-import { Cardio } from './components/post_auth/helper_components/workouts'
-
 function App() {
   
   const [isAuth, setIsAuth] = useState(false);
@@ -54,10 +51,10 @@ function App() {
     .then((res) => {
       if (res.data.authenticated === true) {
         setIsAuth(true);
+        setAuthUser(res.data.user);
       } else {
         setIsAuth(false);
       }
-      console.log(res);
     })
     .catch((err) => {
       setIsAuth(false);
@@ -74,7 +71,8 @@ function App() {
     checkAuth: checkAuth, 
     isAuth: isAuth, 
     setIsAuth: setIsAuth, 
-    setAuthUser: setAuthUser
+    setAuthUser: setAuthUser,
+    authUser: authUser
   }
 
   return (
@@ -101,9 +99,6 @@ function App() {
         {/* Post Auth Routes */}
         <Route path='/app/' exact component={Dashboard}/>
         <Route path='/app/track' exact component={Track}/>
-
-        <Route path='/app/track/test' exact component={Cardio}/>
-
         <Route path='/app/logs' exact component={Logs}/>
         <Route path='/app/templates' exact component={Templates}/>
       </Router>

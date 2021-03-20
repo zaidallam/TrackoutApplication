@@ -9,138 +9,170 @@ const { ensureAuthenticated } = require('../auth')
 const router = express.Router();
 
 router.delete('/:user', ensureAuthenticated, async (req, res) => { //Deletes specific template and log data
-    if (req.query.resource === "logs") {
-        UserLogs.updateOne( 
-            { owner: req.params.user },
-            { $pull: { logs:{ _id : req.body._id} } }
-        )
-        .then(result => res.json({message: result}))
-        .catch(err => res.json({error: err.message}));
-    } else if (req.query.resource === "templates") {
-        UserTemplates.updateOne( 
-            { owner: req.params.user },
-            { $pull: { templates:{ _id : req.body._id} } }
-        )
-        .then(result => res.json({message: result}))
-        .catch(err => res.json({error: err.message}));
+    if (req.params.user === req.user.username) {
+        try {
+            if (req.query.resource === "logs") {
+                UserLogs.updateOne( 
+                    { owner: req.params.user },
+                    { $pull: { logs:{ _id : req.body._id} } }
+                )
+                .then(result => res.json({message: result}))
+                .catch(err => res.json({error: err.message}));
+            } else if (req.query.resource === "templates") {
+                UserTemplates.updateOne( 
+                    { owner: req.params.user },
+                    { $pull: { templates:{ _id : req.body._id} } }
+                )
+                .then(result => res.json({message: result}))
+                .catch(err => res.json({error: err.message}));
+            } else {
+                res.status(400).json({message: '400: Bad request.'});
+            }
+        } catch (err) {
+            res.status(400).json({message: 'Something went wrong.'})
+        }
     } else {
-        res.status(400).json({message: '400: Bad request.'});
+        res.status(400).json({message: "You don't have permission to access or modify this resource."})
     }
 });
 
 router.put('/:user', ensureAuthenticated, async (req, res) => { //Updates specific template, log, and profile data
-    if (req.query.resource === "logs") {
-        UserLogs.updateOne(
-            { owner: req.params.user },
-            { $set: { "logs.$[outer]": req.body }}, 
-            { "arrayFilters": [{"outer._id": req.body._id}]}
-        )
-        .then(result => res.json({message: result}))
-        .catch(err => res.json({error: err.message}));
-    } else if (req.query.resource === "templates") {
-        UserTemplates.updateOne(
-            { owner: req.params.user },
-            { $set: { "templates.$[outer]": req.body }}, 
-            { "arrayFilters": [{"outer._id": req.body._id}]}
-        )
-        .then(result => res.json({message: result}))
-        .catch(err => res.json({error: err.message}));
-    } else if (req.query.resource === "profile") {
-        UserProfiles.updateOne(
-            { owner: req.params.user },
-            { 
-                name: req.body.name,
-                height: req.body.height,
-                weight: req.body.weight,
-            },
-            { runValidators: true },
-            (err, result) => {
-                if (err) {
-                    res.json({message: err.message});
-                } else {
-                    res.json(result);
-                }
+    if (req.params.user === req.user.username) {
+        try {
+            if (req.query.resource === "logs") {
+                UserLogs.updateOne(
+                    { owner: req.params.user },
+                    { $set: { "logs.$[outer]": req.body }}, 
+                    { "arrayFilters": [{"outer._id": req.body._id}]}
+                )
+                .then(result => res.json({message: result}))
+                .catch(err => res.json({error: err.message}));
+            } else if (req.query.resource === "templates") {
+                UserTemplates.updateOne(
+                    { owner: req.params.user },
+                    { $set: { "templates.$[outer]": req.body }}, 
+                    { "arrayFilters": [{"outer._id": req.body._id}]}
+                )
+                .then(result => res.json({message: result}))
+                .catch(err => res.json({error: err.message}));
+            } else if (req.query.resource === "profile") {
+                UserProfiles.updateOne(
+                    { owner: req.params.user },
+                    { 
+                        name: req.body.name,
+                        height: req.body.height,
+                        weight: req.body.weight,
+                    },
+                    { runValidators: true },
+                    (err, result) => {
+                        if (err) {
+                            res.json({message: err.message});
+                        } else {
+                            res.json(result);
+                        }
+                    }
+                )
+            } else {
+                res.status(400).json({message: '400: Bad request.'});
             }
-        )
+        } catch (err) {
+            res.status(400).json({message: 'Something went wrong.'})
+        }
     } else {
-        res.status(400).json({message: '400: Bad request.'});
+        res.status(400).json({message: "You don't have permission to access or modify this resource."})
     }
 });
 
 router.post('/:user', ensureAuthenticated, async (req, res) => { //Creates specific template and log data
-    if (req.query.resource === "logs") {
-        const logs = (await UserLogs.findOne({ owner: req.params.user })).logs;
-        if (logs.length > 0) {
-            req.body._id = logs[logs.length-1]._id + 1;
-        } else {
-            req.body._id = 1;
-        }
+    if (req.params.user === req.user.username) {
+        try {
+            if (req.query.resource === "logs") {
+                const logs = (await UserLogs.findOne({ owner: req.params.user })).logs;
+                if (logs.length > 0) {
+                    req.body._id = logs[logs.length-1]._id + 1;
+                } else {
+                    req.body._id = 1;
+                }
 
-        UserLogs.updateOne(
-            { owner: req.params.user },
-            { $push: { logs: [req.body] } },
-            (err, result) => {
-                if (err) {
-                    res.json({message: err.message});
+                UserLogs.updateOne(
+                    { owner: req.params.user },
+                    { $push: { logs: [req.body] } },
+                    (err, result) => {
+                        if (err) {
+                            res.json({message: err.message});
+                        } else {
+                            res.json(result);
+                        }
+                    }
+                )
+            } else if (req.query.resource === "templates") {
+                const templates = (await UserTemplates.findOne({ owner: req.params.user })).templates;
+                
+                if (templates.length > 0) {
+                    req.body._id = req.body._id = templates[templates.length-1]._id + 1;
                 } else {
-                    res.json(result);
+                    req.body._id = 1;
                 }
+                
+                UserTemplates.updateOne(
+                    { owner: req.params.user },
+                    { $push: { templates: [req.body] } },
+                    (err, result) => {
+                        if (err) {
+                            res.json({message: err.message});
+                        } else {
+                            res.json(result);
+                        }
+                    }
+                )
+            } else {
+                res.status(400).json({message: '400: Bad request.'});
             }
-        )
-    } else if (req.query.resource === "templates") {
-        const templates = (await UserTemplates.findOne({ owner: req.params.user })).templates;
-        
-        if (templates.length > 0) {
-            req.body._id = req.body._id = templates[templates.length-1]._id + 1;
-        } else {
-            req.body._id = 1;
+        } catch (err) {
+            res.status(400).json({message: 'Something went wrong.'})
         }
-        
-        UserTemplates.updateOne(
-            { owner: req.params.user },
-            { $push: { templates: [req.body] } },
-            (err, result) => {
-                if (err) {
-                    res.json({message: err.message});
-                } else {
-                    res.json(result);
-                }
-            }
-        )
     } else {
-        res.status(400).json({message: '400: Bad request.'});
-    }    
+        res.status(400).json({message: "You don't have permission to access or modify this resource."})
+    }
 });
 
 router.get('/:user', ensureAuthenticated, async (req, res) => { //Retrieves user info
-    if (req.query.resource === "logs") {
-        let logs = (await UserLogs.findOne({ owner: req.params.user }).exec()).logs;
-        if (logs) {
-            res.json(logs);
-        } else {
-            res.status(404).json({message: '404: not found.'});
-        }
-    } else if (req.query.resource === "templates") {
-        let templates = (await UserTemplates.findOne({ owner: req.params.user }).exec()).templates;
-        if (templates) {
-            res.json(templates);
-        } else {
-            res.status(404).json({message: '404: not found.'});
-        }
-    } else if (req.query.resource === "profile") {
-        let profile = (await UserProfiles.findOne({ owner: req.params.user }).exec());
-        if (profile) {
-            res.json(profile);
-        } else {
-            res.status(404).json({message: '404: not found.'});
+    if (req.params.user === req.user.username) {
+        try {
+            if (req.query.resource === "logs") {
+                let logs = (await UserLogs.findOne({ owner: req.params.user }).exec()).logs;
+                if (logs) {
+                    res.json(logs);
+                } else {
+                    res.status(404).json({message: '404: not found.'});
+                }
+            } else if (req.query.resource === "templates") {
+                let templates = (await UserTemplates.findOne({ owner: req.params.user }).exec()).templates;
+                if (templates) {
+                    res.json(templates);
+                } else {
+                    res.status(404).json({message: '404: not found.'});
+                }
+            } else if (req.query.resource === "profile") {
+                let profile = (await UserProfiles.findOne({ owner: req.params.user }).exec());
+                if (profile) {
+                    res.json(profile);
+                } else {
+                    res.status(404).json({message: '404: not found.'});
+                }
+            } else {
+                let userData = await Users.findOne({ username: req.params.user }).exec()
+                if (userData) {
+                    res.json(userData);
+                } else {
+                    res.status(404).json({message: '404: not found.'});
+                }
+            }
+        } catch (err) {
+            res.status(400).json({message: 'Something went wrong.'})
         }
     } else {
-        let userData = await Users.findOne({ username: req.params.user }).exec()
-        if (userData) {
-            res.json(userData);
-        } else {
-            res.status(404).json({message: '404: not found.'});
-        }
+        res.status(400).json({message: "You don't have permission to access or modify this resource."})
     }
 });
 

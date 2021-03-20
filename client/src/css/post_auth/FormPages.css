@@ -78,4 +78,8 @@ div[class~="form-page"] #save-button {
     div[class~="form-page"] input {
         margin-right: 2px;
     }
+
+    div[class~="form-page"] textarea {
+        width: 80vw;
+    }
 }

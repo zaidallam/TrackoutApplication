@@ -57,7 +57,7 @@ app.delete('/logout', (req, res) =>{
 
 app.get('/checkauth', (req, res) => {
     if (req.isAuthenticated()) {
-        res.json({ authenticated: true })
+        res.json({ authenticated: true, user: req.user.username })
     } else {
         res.json({ authenticated: false })
     }

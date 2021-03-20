@@ -68,7 +68,7 @@
     background-color: white;
     position: relative;
     min-width: fit-content;
-    grid-auto-rows: fit-content(100%) fit-content(100%) auto fit-content(100%);
+    grid-auto-rows: fit-content(100%) fit-content(100%) auto;
     height: 100%;
     overflow: scroll;
 }
@@ -133,6 +133,14 @@
 
 #logs .filters button {
     padding: 3px 20px;
+    margin-right: 30px;
+}
+
+#logs .filters #page-select {
+    width: 42px;
+    margin-right: 5px;
+    font-size: 30px;
+    padding-left: 15px;
 }
 
 #logs .logs-list {
@@ -147,8 +155,14 @@
     border-width: 3px;
     border-color: black;
     border-style: solid;
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 48px);
     align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#logs .log-container:hover {
+    opacity: 0.5;
 }
 
 #logs .log-container > * {
@@ -156,10 +170,17 @@
     height: 100%
 }
 
+#logs .title-container {
+    background-color: black;
+    position: relative;
+    overflow: hidden;
+}
+
 #logs .log-title {
     background-color: black;
     color: white;
-    font-size: 40px;
+    font-size: 30px;
+    line-height: 40px;
 }
 
 #logs .log-content {
@@ -168,47 +189,9 @@
 }
 
 #logs .log-content p {
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
 }
-
-#logs .log-nav {
-    height: 50px;
-    padding-left: 2%;
-    height: fit-content;
-    margin-bottom: 10px;
-}
-
-#logs .log-nav ul {
-    width: fit-content;
-    margin: auto;
-}
-
-#logs .log-nav ul li {
-    display: block;
-    font-size: 30px;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    margin: 0 5px;
-    background-color: #CCC;
-    padding-top: 4px;
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-#logs .log-nav ul li[class="nav-arrow"] {
-    width: 20px;
-}
-
-#logs .log-nav ul li[class="nav-arrow"] img {
-    height: 80%;
-}
-
-#logs .log-nav ul li:hover {
-    background-color: #AAA;
-}
-
 
 @media only screen and (max-width: 768px) {
     /* Nothing here at the moment */
@@ -325,6 +308,7 @@
 
     #logs .filters button {
         margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     #logs .logs-list {
