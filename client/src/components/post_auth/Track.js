@@ -1307,7 +1307,7 @@ export const Track = () => {
                                 <legend>WORKOUT INFO</legend>
                                 <input type="text" id="info-title" name="info-title" placeholder="Title" maxLength={36} onBlur={ e => updateWorkoutData(e.target)}/><br className="mobile-only" />
                                 <input className="exercise-secondary" type="number" id="info-hours" name="info-hours" placeholder="Hours" onBlur={ e => updateWorkoutData(e.target)}/><br className="mobile-only" />
-                                <input className="exercise-secondary" type="number" id="info-minutes" name="info-minutes" placeholder="Minutes" onBlur={ e => updateWorkoutData(e.target)}/><br className="mobile-only" />
+                                <input className="exercise-secondary" type="number" id="info-minutes" name="info-minutes" placeholder="Minutes" max={59} onBlur={ e => updateWorkoutData(e.target)}/><br className="mobile-only" />
                                 <input type="date" id="info-date" name="info-date" placeholder="Date" onBlur={ e => updateWorkoutData(e.target)}/>
                                 <select name="info-status" id="info-status" onBlur={ e => updateWorkoutData(e.target)}>
                                     <option value="complete">Complete</option>

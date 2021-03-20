@@ -7,11 +7,16 @@ import { Log } from './helper_components/logs'
 import axios from 'axios'
 import '../../css/post_auth/Logs.css'
 import '../../css/post_auth/General.css'
+import { set } from 'js-cookie'
 
 export const Logs = () => {
 
     const { isAuth, logout, authUser} = useContext(Context);
     const [workoutLog, setWorkoutLog] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [activeLog, setActiveLog] = useState([]);
+    const [selectedPage, setSelectedPage] = useState(1);
 
     const fetchWorkoutLog = () => {
         axios({
@@ -20,7 +25,7 @@ export const Logs = () => {
             url: `http://localhost:5000/users/${authUser}?resource=logs`
         })
         .then((res) => {
-            setWorkoutLog(res.data);
+            setWorkoutLog(res.data.reverse());
         })
         .catch(() => {
             console.log('fetching failed');
@@ -30,6 +35,15 @@ export const Logs = () => {
     useEffect(() => {
         fetchWorkoutLog()
     }, []);
+
+    useEffect( () => {
+        setActiveLog(workoutLog.slice((currentPage - 1)*9, (currentPage - 1)*9+9));
+        setTotalPages(Math.ceil(workoutLog.length / 9));
+    }, [workoutLog] );
+
+    useEffect( () => {
+        setActiveLog(workoutLog.slice((currentPage - 1)*9, (currentPage - 1)*9+9));
+    }, [currentPage] );
 
     if (isAuth) {
         return (
@@ -45,13 +59,13 @@ export const Logs = () => {
                         <input type="date" id="to-date" name="to-date" />
                         <button>APPLY</button><br className="mobile-only" />
                         <label htmlFor="from-date">PAGE</label>
-                        <input type="number" id="page-select" name="page-select" defaultValue='1'/>
-                        <label htmlFor="from-date">OF 100</label>
-                        <button>GO</button>
+                        <input type="number" id="page-select" name="page-select" defaultValue='1' onChange={ e => setSelectedPage(e.target.value)}/>
+                        <label htmlFor="from-date">OF {totalPages}</label>
+                        <button onClick={ e => { e.preventDefault(); setCurrentPage(selectedPage) } }>GO</button>
                     </div>
                     <div className="logs-list grid-3">
 
-                        {workoutLog.map(workout => <Log workout={workout} key={workout._id}/>)}
+                        {activeLog.map(workout => <Log workout={workout} key={workout._id}/>)}
 
 
                     </div>
