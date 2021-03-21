@@ -3,7 +3,7 @@ import { Context } from '../../Context'
 import { NavBar } from './NavBar'
 import { NavBarMobile } from './NavBarMobile'
 import { Link, Redirect } from 'react-router-dom'
-import { Log } from './helper_components/logs'
+import { Log, LogWindow } from './helper_components/logs'
 import axios from 'axios'
 import '../../css/post_auth/Logs.css'
 import '../../css/post_auth/General.css'
@@ -19,6 +19,9 @@ export const Logs = () => {
     const [selectedPage, setSelectedPage] = useState(1);
 
     const [selectedDateRange, setSelectedDateRange] = useState({from: '', to: ''})
+
+    const [deleteConfirmStyle, setDeleteConfirmStyle] = useState('hide');
+    const [deleteFailStyle, setDeleteFailStyle] = useState('hide');
 
     const fetchWorkoutLog = () => {
         axios({
@@ -107,12 +110,13 @@ export const Logs = () => {
                         <label htmlFor="from-date">PAGE</label>
                         <input type="number" id="page-select" name="page-select" defaultValue='1' onChange={ e => setSelectedPage(e.target.value)} />
                         <label htmlFor="from-date">OF {totalPages}</label>
-                        <button onClick={ e => { e.preventDefault(); switchPage(selectedPage) } }>GO</button>
+                        <button onClick={ e => { e.preventDefault(); switchPage(selectedPage) } }>GO</button><br />
+                        <div className={deleteConfirmStyle}>LOG DELETED</div>
+                        <div className={deleteFailStyle}>ERROR: LOG NOT DELETED</div>
                     </div>
                     <div className="logs-list grid-3">
 
-                        {activeLog.map(workout => <Log workout={workout} key={workout._id}/>)}
-
+                        {activeLog.map(workout => <Log workout={workout} key={workout._id} deleteConfirmStyle={deleteConfirmStyle} setDeleteConfirmStyle={setDeleteConfirmStyle} setDeleteFailStyle={setDeleteFailStyle} setSourceLog={setSourceLog}sourceLog={sourceLog} clearDateRange={clearDateRange}/>)}
 
                     </div>
                     <nav className="mobile-hide">

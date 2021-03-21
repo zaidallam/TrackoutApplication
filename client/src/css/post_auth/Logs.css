@@ -193,6 +193,96 @@
     font-weight: bold;
 }
 
+#logs .log-view-window-container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #00000080;
+    animation-duration: 0.2s;
+    z-index: 1;
+}
+
+#logs .log-view-window {
+    width: 90%;
+    height: 90%;
+    padding: 2%;
+    background-color: white;
+    position: relative;
+    top: 5%;
+    left: 5%;
+    animation-fill-mode: backwards;
+    animation-name: log-window;
+    animation-duration: 0.7s;
+    animation-delay: 0.2s;
+    overflow: scroll;
+}
+
+#logs #exit-button {
+    position: absolute;
+    width: 30px;
+    top: 3%;
+    right: 30px;
+    transition: 0.2s;
+}
+
+#logs #exit-button:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#logs .log-view-window h2 {
+    font-size: 70px;
+    color: black;
+    margin: 0;
+    height: unset;
+}
+
+#logs .log-view-window p {
+    margin-left: 1%;
+    font-size: 30px;
+}
+
+#logs .log-view-window div {
+    margin-left: 2%;
+}
+
+#logs .log-view-window div h3 {
+    margin-top: 2%;
+    font-size: 50px;
+}
+
+#logs .log-view-window div p {
+    margin-left: 1%;
+    font-size: 30px;
+}
+
+#logs .delete-log {
+    position: absolute;
+    left: 5%;
+    top: 1%;
+    color: white;
+    font-size: 30px;
+}
+
+#logs .delete-log p {
+    margin: 0 5px 0 20px
+}
+
+#logs .log-view-window-container button {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px;
+    margin-right: 5px;
+    height: 29px;
+}
+
+@keyframes log-window {
+    0% {transform: scale(0);}
+    100% {transform: scale(1);}
+}
+
 @media only screen and (max-width: 768px) {
     /* Nothing here at the moment */
 } 
@@ -352,6 +442,53 @@
     
     #logs .log-nav ul li[class="nav-arrow"] img {
         height: 80%;
+    }
+
+    #logs #exit-button-mobile {
+        position: absolute;
+        width: 30px;
+        top: 1vh;
+        right: 5vw;
+        transition: 0.2s;
+    }
+    
+    #logs #exit-button-mobile:hover {
+        cursor: pointer;
+        opacity: 0.5;
+    }
+
+    #logs .log-view-window h2 {
+        font-size: 53px;
+        color: black;
+        margin: 0;
+        height: unset;
+    }
+    
+    #logs .log-view-window p {
+        font-size: 23px;
+    }
+    
+    #logs .log-view-window div h3 {
+        font-size: 37px;
+    }
+    
+    #logs .log-view-window div p {
+        font-size: 23px;
+    }
+
+    #logs .delete-log {
+        font-size: 20px;
+        align-items: center;
+    }
+    
+    #logs .delete-log p {
+        margin: 0 5px
+    }
+    
+    #logs .log-view-window-container button {
+        padding-left: 7px;
+        padding-right: 7px;
+        font-size: 14px;
     }
 
 }
