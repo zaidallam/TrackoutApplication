@@ -68,7 +68,7 @@
     background-color: white;
     position: relative;
     min-width: fit-content;
-    grid-auto-rows: fit-content(100%) fit-content(100%) auto fit-content(100%);
+    grid-auto-rows: fit-content(100%) fit-content(100%) auto;
     height: 100%;
     overflow: scroll;
 }
@@ -135,11 +135,21 @@
 
 #templates .filters select {
     background-color: #CCC;
-    border-width: 0;
+    border-style: none;
+    margin-right: 20px;
 }
 
 #templates .filters button {
     padding: 3px 20px;
+}
+
+#templates .filters #page-select {
+    width: 42px;
+    margin-right: 5px;
+    font-size: 30px;
+    padding-left: 15px;
+    background-color: #CCC;
+    border-style: none;
 }
 
 #templates .templates-list {
@@ -156,6 +166,14 @@
     border-style: solid;
     grid-template-rows: repeat(3, 1fr);
     align-items: center;
+    overflow: hidden;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#templates .template-container:hover {
+    opacity: 0.5;
 }
 
 #templates .template-container > * {
@@ -216,6 +234,105 @@
     background-color: #AAA;
 }
 
+#templates .template-view-window-container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #00000080;
+    animation-duration: 0.2s;
+    z-index: 1;
+}
+
+#templates .template-view-window {
+    width: 90%;
+    height: 90%;
+    padding: 2%;
+    background-color: white;
+    position: relative;
+    top: 5%;
+    left: 5%;
+    animation-fill-mode: backwards;
+    animation-name: log-window;
+    animation-duration: 0.7s;
+    animation-delay: 0.2s;
+    overflow: scroll;
+}
+
+#templates #exit-button {
+    position: absolute;
+    width: 30px;
+    top: 3%;
+    right: 30px;
+    transition: 0.2s;
+}
+
+#templates #exit-button:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#templates .template-view-window h2 {
+    font-size: 70px;
+    color: black;
+    margin: 0;
+    height: unset;
+}
+
+#templates .template-view-window p {
+    margin-left: 1%;
+    font-size: 30px;
+}
+
+#templates .delete-template {
+    position: absolute;
+    left: 5%;
+    top: 1%;
+    color: white;
+    font-size: 30px;
+}
+
+#templates .delete-template p {
+    margin: 0 5px 0 20px
+}
+
+#templates .template-view-window-container button {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px;
+    margin-right: 5px;
+    height: 29px;
+}
+
+#templates .template-view-window label {
+    font-size: 30px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+#templates .template-view-window input:not(.input-form *) {
+    background-color: #CCC;
+    border-style: none;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+#templates .template-view-window select:not(.type-fieldset *) {
+    background-color: #CCC;
+    border-style: none;
+    font-size: 30px;
+}
+
+#templates .template-view-window button {
+    font-size: 30px;
+    height: fit-content;
+    width: fit-content;
+}
+
+#templates fieldset {
+    min-width: 800px;
+}
 
 @media only screen and (max-width: 768px) {
     /* Nothing here at the moment */
@@ -379,6 +496,42 @@
     
     #templates .template-nav ul li[class="nav-arrow"] img {
         height: 80%;
+    }
+
+    #templates #exit-button-mobile {
+        position: absolute;
+        width: 30px;
+        top: 1vh;
+        right: 5vw;
+        transition: 0.2s;
+    }
+    
+    #templates #exit-button-mobile:hover {
+        cursor: pointer;
+        opacity: 0.5;
+    }
+
+    #templates .template-view-window h2 {
+        font-size: 53px;
+    }
+
+    #templates .template-view-window p {
+        font-size: 23px;
+    }
+
+    #templates .delete-template {
+        font-size: 20px;
+        align-items: center;
+    }
+    
+    #templates .delete-template p {
+        margin: 0 5px
+    }
+    
+    #templates .template-view-window-container button {
+        padding-left: 7px;
+        padding-right: 7px;
+        margin-bottom: 10px;
     }
 
 }

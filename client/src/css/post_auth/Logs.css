@@ -459,9 +459,6 @@
 
     #logs .log-view-window h2 {
         font-size: 53px;
-        color: black;
-        margin: 0;
-        height: unset;
     }
     
     #logs .log-view-window p {

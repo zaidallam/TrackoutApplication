@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Context } from '../../Context'
 import { NavBar } from './NavBar'
 import { NavBarMobile } from './NavBarMobile'
@@ -17,6 +17,7 @@ export const Track = () => {
 
     const { isAuth, logout, authUser } = useContext(Context)
 
+    const [templates, setTemplates] = useState({});
     const [errorClass, setErrorClass] = useState('hide');
     const [successClass, setSuccessClass] = useState('hide');
     const [rejectClass, setRejectClass] = useState('hide');
@@ -172,19 +173,19 @@ export const Track = () => {
                 
         if (trainingType.status) {
             if (trainingType.name === 'warmup') {
-                return (<Warmup updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} key={1} />)
+                return (<Warmup updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} templates={templates} key={1} />)
             }
             if (trainingType.name === 'strength') {
-                return (<Strength updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} index={trainingType.index} key={trainingType.index} />)
+                return (<Strength updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} index={trainingType.index} templates={templates} key={trainingType.index} />)
             }
             if (trainingType.name === 'cardio') {
-                return (<Cardio updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} index={trainingType.index} key={trainingType.index} />)
+                return (<Cardio updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} index={trainingType.index} templates={templates} key={trainingType.index} />)
             }
             if (trainingType.name === 'cooldown') {
-                return (<Cooldown updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} key={2} />)
+                return (<Cooldown updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} templates={templates} key={2} />)
             }
             if (trainingType.name === 'mobility') {
-                return (<Mobility  updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} key={3} />)
+                return (<Mobility  updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} templates={templates} key={3} />)
             }
         }
         if (trainingType.index) {
@@ -198,7 +199,7 @@ export const Track = () => {
         let updatedExercise = '';
         
         if (/warmup/.test(target.id)) {
-            const id = parseInt(target.id.match(/\d+/)[0])
+            const id = parseInt(target.id.match(/\d+/)[0]);
             const exerciseSearch = workoutData.warmup.filter(exercise => exercise.id === id);
 
             if (/name/.test(target.id)) {
@@ -1277,6 +1278,24 @@ export const Track = () => {
             });
         }
     }
+
+    const fetchTemplates = () => { //To be used to update template add list
+        axios({
+            method: 'GET',
+            withCredentials: true,
+            url: `http://localhost:5000/users/${authUser}?resource=templates`
+        })
+        .then((res) => {
+            setTemplates(res.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+
+    useEffect( () => {
+        fetchTemplates();
+    }, []);
 
     if(isAuth) {
         return (

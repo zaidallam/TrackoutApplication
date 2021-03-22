@@ -3,7 +3,7 @@ import { Context } from '../../Context'
 import { NavBar } from './NavBar'
 import { NavBarMobile } from './NavBarMobile'
 import { Link, Redirect } from 'react-router-dom'
-import { Log, LogWindow } from './helper_components/logs'
+import { Log } from './helper_components/logs'
 import axios from 'axios'
 import '../../css/post_auth/Logs.css'
 import '../../css/post_auth/General.css'
@@ -107,9 +107,9 @@ export const Logs = () => {
                         <label htmlFor="to-date">TO:</label><br className="mobile-only" />
                         <input type="date" id="to-date" name="to-date" onChange={ e => setSelectedDateRange({ from: selectedDateRange.from, to: e.target.value }) }/>
                         <button onClick={ e => { e.preventDefault(); applyDateRange() } }>APPLY</button><button onClick={ e => { e.preventDefault(); clearDateRange() } }>CLEAR</button><br className="mobile-only" />
-                        <label htmlFor="from-date">PAGE</label>
+                        <label htmlFor="page-select">PAGE</label>
                         <input type="number" id="page-select" name="page-select" defaultValue='1' onChange={ e => setSelectedPage(e.target.value)} />
-                        <label htmlFor="from-date">OF {totalPages}</label>
+                        <label htmlFor="page-select">OF {totalPages}</label>
                         <button onClick={ e => { e.preventDefault(); switchPage(selectedPage) } }>GO</button><br />
                         <div className={deleteConfirmStyle}>LOG DELETED</div>
                         <div className={deleteFailStyle}>ERROR: LOG NOT DELETED</div>

@@ -3,26 +3,10 @@ import { Context } from '../../../Context'
 import axios from 'axios'
 
 
-export const Warmup = ( { updateTrainingTypesState, updateWorkoutData } ) => {
-    
-    const { authUser } = useContext(Context);
-    const [templates, setTemplates] = useState({});
+export const Warmup = ( { updateTrainingTypesState, updateWorkoutData, templates } ) => {
+
     const [templateChoice, setTemplateChoice] = useState('');
     const [exercises, setExercises] = useState({index: 1, array: [1]});
-
-    const fetchTemplates = () => { //To be used to update template add list
-        axios({
-            method: 'GET',
-            withCredentials: true,
-            url: `http://localhost:5000/users/${authUser}?resource=templates`
-        })
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
 
     const addTemplate = (name) => {
         if (name) {
@@ -33,6 +17,11 @@ export const Warmup = ( { updateTrainingTypesState, updateWorkoutData } ) => {
             }
         }
         
+    }
+
+    const populateTemplateList = () => {
+        const selectedTemplates = templates.filter( template => template.type === 'warmup-cooldown' );
+        return selectedTemplates.map( template => <option value={template._id} key={template._id}>{template.name}</option> );
     }
 
     const removeExercise = (id) => {
@@ -51,7 +40,7 @@ export const Warmup = ( { updateTrainingTypesState, updateWorkoutData } ) => {
                 <option value="" disabled hidden>Choose Template</option>
                 <option value="new">New Exercise</option>
                 <optgroup label="Templates">
-                    <option value="example">Example</option>
+                    { populateTemplateList() }
                 </optgroup>
             </select>
             <button onClick={ e => {e.preventDefault(); addTemplate(templateChoice)}}>
@@ -65,26 +54,10 @@ export const Warmup = ( { updateTrainingTypesState, updateWorkoutData } ) => {
     )
 }
 
-export const Strength = ( { updateTrainingTypesState, updateWorkoutData, index } ) => {
-    
-    const { authUser } = useContext(Context);
-    const [templates, setTemplates] = useState({});
+export const Strength = ( { updateTrainingTypesState, updateWorkoutData, index, templates } ) => {
+
     const [templateChoice, setTemplateChoice] = useState('');
     const [exercises, setExercises] = useState({index: 1, array: [1]});
-
-    const retrieveTemplates = () => { //To be used to update template add list
-        axios({
-            method: 'GET',
-            withCredentials: true,
-            url: `http://localhost:5000/users/${authUser}?resource=templates`
-        })
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
 
     const addTemplate = (name) => {
         if (name) {
@@ -129,26 +102,10 @@ export const Strength = ( { updateTrainingTypesState, updateWorkoutData, index }
     )
 }
 
-export const Cardio = ( { updateTrainingTypesState, updateWorkoutData, index } ) => {
-    
-    const { authUser } = useContext(Context);
-    const [templates, setTemplates] = useState({});
+export const Cardio = ( { updateTrainingTypesState, updateWorkoutData, index, templates } ) => {
+
     const [templateChoice, setTemplateChoice] = useState('');
     const [exercises, setExercises] = useState({index: 1, array: [1]});
-
-    const retrieveTemplates = () => { //To be used to update template add list
-        axios({
-            method: 'GET',
-            withCredentials: true,
-            url: `http://localhost:5000/users/${authUser}?resource=templates`
-        })
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
 
     const addTemplate = (name) => {
         if (name) {
@@ -191,26 +148,10 @@ export const Cardio = ( { updateTrainingTypesState, updateWorkoutData, index } )
     )
 }
 
-export const Cooldown = ( { updateTrainingTypesState, updateWorkoutData } ) => {
+export const Cooldown = ( { updateTrainingTypesState, updateWorkoutData, templates } ) => {
     
-    const { authUser } = useContext(Context);
-    const [templates, setTemplates] = useState({});
     const [templateChoice, setTemplateChoice] = useState('');
     const [exercises, setExercises] = useState({index: 1, array: [1]});
-
-    const retrieveTemplates = () => { //To be used to update template add list
-        axios({
-            method: 'GET',
-            withCredentials: true,
-            url: `http://localhost:5000/users/${authUser}?resource=templates`
-        })
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
 
     const addTemplate = (name) => {
         if (name) {
@@ -252,26 +193,10 @@ export const Cooldown = ( { updateTrainingTypesState, updateWorkoutData } ) => {
     )
 }
 
-export const Mobility = ( { updateTrainingTypesState, updateWorkoutData } ) => {
-    
-    const { authUser } = useContext(Context);
-    const [templates, setTemplates] = useState({});
+export const Mobility = ( { updateTrainingTypesState, updateWorkoutData, templates } ) => {
+
     const [templateChoice, setTemplateChoice] = useState('');
     const [exercises, setExercises] = useState({index: 1, array: [1]});
-
-    const retrieveTemplates = () => { //To be used to update template add list
-        axios({
-            method: 'GET',
-            withCredentials: true,
-            url: `http://localhost:5000/users/${authUser}?resource=templates`
-        })
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
 
     const addTemplate = (name) => {
         if (name) {
