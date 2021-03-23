@@ -5,7 +5,7 @@
 #dashboard {
     grid-template-columns: 270px minmax(270px, auto);
     background-color: white;
-    min-height: 100vh;
+    height: 100vh;
 }
 
 #dashboard header {
@@ -67,8 +67,8 @@
 #dashboard .content-section {
     background-color: white;
     position: relative;
-    min-width: fit-content;
-    grid-template-rows: fit-content(100%) auto auto;
+    min-width: 1000px;
+    grid-template-rows: fit-content(100%) 1fr 1fr;
     height: 100%;
     overflow: scroll;
     gap: 2%;
@@ -120,6 +120,33 @@
 #dashboard .recent-training {
     margin: 0 4%;
     font-size: 30px;
+    grid-template-rows: 35px auto;
+}
+
+#dashboard .recent-workout-container {
+    gap: 10px;
+}
+
+#dashboard .recent-workout {
+    border-style: solid;
+    border-color: black;
+    border-width: 3px;
+    height: 300px;
+    overflow: scroll;
+}
+
+#dashboard .recent-workout h2 {
+    color: black;
+    height: auto;
+}
+
+
+#dashboard .recent-workout h3 {
+    margin-left: 10px;
+}
+
+#dashboard .recent-workout p {
+    margin-left: 10px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -219,6 +246,10 @@
         margin: 0 10vw;
         height: fit-content;
     }
+
+    #dashboard #training-chart {
+        height: 250px
+    }
     
     #dashboard .recent-training {
         margin: 0 4%;
@@ -247,5 +278,28 @@
 
     #dashboard .mobile-nav div a img {
        height: 100%;
+    }
+
+    #dashboard .recent-workout-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: fit-content(100%) fit-content(100%) fit-content(100%);
+    }
+
+    #dashboard .recent-workout {
+        width: 80vw;
+    }
+
+    #dashboard .recent-workout h2 {
+        color: black;
+        height: auto;
+        font-size: 40px;
+    }
+
+    #dashboard .recent-workout h3 {
+        font-size: 30px;
+    }
+
+    #dashboard .recent-workout p {
+        font-size: 20px;
     }
 }

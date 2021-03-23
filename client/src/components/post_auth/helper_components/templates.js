@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../../../Context';
 import axios from 'axios';
 
-export const NewTemplateWindow = ( { setActive } ) => {
+export const NewTemplateWindow = ( { setActive, fetchTemplates, resetList } ) => {
     
     const { authUser } = useContext(Context); 
 
@@ -48,6 +48,9 @@ export const NewTemplateWindow = ( { setActive } ) => {
                     updatedExercise = exerciseSearch[0];
                 } else if (/vol/.test(target.id)) {
                     exerciseSearch[0].vol = target.value;
+                    updatedExercise = exerciseSearch[0];
+                } else if (/sets/.test(target.id)) {
+                    exerciseSearch[0].sets = target.value;
                     updatedExercise = exerciseSearch[0];
                 }
             } else {
@@ -115,13 +118,16 @@ export const NewTemplateWindow = ( { setActive } ) => {
                     exerciseSearch[0].vol = target.value;
                     updatedExercise = exerciseSearch[0];
                 } else if (/final/.test(target.id)) {
-                    exerciseSearch[0].restFinal = target.value;
+                    exerciseSearch[0].finalRest = target.value;
                     updatedExercise = exerciseSearch[0];
                 } else if (/rest-units/.test(target.id)) {
                     exerciseSearch[0].restUnits = target.value;
                     updatedExercise = exerciseSearch[0];
                 } else if (/rest/.test(target.id)) {
-                    exerciseSearch[0].rest = target.value;
+                    exerciseSearch[0].setRest = target.value;
+                    updatedExercise = exerciseSearch[0];
+                } else if (/sets/.test(target.id)) {
+                    exerciseSearch[0].sets = target.value;
                     updatedExercise = exerciseSearch[0];
                 }
             } else {
@@ -294,10 +300,12 @@ export const NewTemplateWindow = ( { setActive } ) => {
                 url: `http://localhost:5000/users/${authUser}?resource=templates`
             })
             .then((res) => {
-                console.log(res);
+                setActive(false);
+                fetchTemplates();
+                resetList()
             })
             .catch((err) => {
-                console.log(err);
+                setActive(false);
             });
         }
     }
@@ -631,16 +639,13 @@ export const TemplateWindow = ( { template, setTemplateEntry, getDate, getDay, d
         .then((res) => {
             setTimeout( () => setDeleteConfirmStyle('hide'), 5000); 
             setSourceTemplates(sourceTemplates.filter( entry => entry._id !== template._id));
+            resetList();
         })
         .catch(() => {
             setDeleteFailStyle('');
             setTimeout( () => setDeleteFailStyle('hide'), 5000); 
         });
     }
-
-    useEffect( () => {
-        resetList();
-    }, [sourceTemplates]);
 
     return (
         <>

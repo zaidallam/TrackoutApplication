@@ -93,7 +93,7 @@ export const Templates = () => {
             <>
             <div className="grid-2 page-container" id="templates">
                 <NavBar selected="templates"/>
-                <RenderNewTemplateWindow isActive={isNewTemplateActive} setActive={setIsNewTemplateActive} />
+                <RenderNewTemplateWindow isActive={isNewTemplateActive} setActive={setIsNewTemplateActive} fetchTemplates={fetchTemplates} resetList={resetList} />
                 <section className="content-section grid-1 fade-in">
                     <div>
                         <h2>TEMPLATES</h2><button className="new-template" onClick={() => setIsNewTemplateActive(true)}>NEW TEMPLATE</button>
@@ -134,9 +134,9 @@ export const Templates = () => {
     }
 }
 
-const RenderNewTemplateWindow = ( { isActive, setActive, sourceTemplates } ) => {
+const RenderNewTemplateWindow = ( { isActive, setActive, fetchTemplates, resetList } ) => {
     if (isActive) {
-        return <NewTemplateWindow setActive={setActive} sourceTemplates={sourceTemplates} />
+        return <NewTemplateWindow setActive={setActive} fetchTemplates={fetchTemplates} resetList={resetList} />
     } else {
         return <></>
     }

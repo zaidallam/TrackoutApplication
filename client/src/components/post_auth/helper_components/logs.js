@@ -30,8 +30,11 @@ export const Log = ( { workout, deleteConfirmStyle, setDeleteConfirmStyle, setDe
         if (types.length === 2) {
             const returnString = `${types[0]}, ${types[1]}`
             return returnString
-        } else {
+        } else if (types.length === 3) {
             const returnString = `${types[0]}, ${types[1]}, ${types[2]}`
+            return returnString
+        } else {
+            const returnString = `WARMUP/COOLDOWN`
             return returnString
         }
 

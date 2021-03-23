@@ -173,19 +173,19 @@ export const Track = () => {
                 
         if (trainingType.status) {
             if (trainingType.name === 'warmup') {
-                return (<Warmup updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} templates={templates} key={1} />)
+                return (<Warmup updateTrainingTypesState={updateTrainingTypesState} workoutData={workoutData} updateWorkoutData={updateWorkoutData} templates={templates} key={1} />)
             }
             if (trainingType.name === 'strength') {
-                return (<Strength updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} index={trainingType.index} templates={templates} key={trainingType.index} />)
+                return (<Strength updateTrainingTypesState={updateTrainingTypesState} workoutData={workoutData} updateWorkoutData={updateWorkoutData} index={trainingType.index} templates={templates} key={trainingType.index} />)
             }
             if (trainingType.name === 'cardio') {
-                return (<Cardio updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} index={trainingType.index} templates={templates} key={trainingType.index} />)
+                return (<Cardio updateTrainingTypesState={updateTrainingTypesState} workoutData={workoutData} updateWorkoutData={updateWorkoutData} index={trainingType.index} templates={templates} key={trainingType.index} />)
             }
             if (trainingType.name === 'cooldown') {
-                return (<Cooldown updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} templates={templates} key={2} />)
+                return (<Cooldown updateTrainingTypesState={updateTrainingTypesState} workoutData={workoutData} updateWorkoutData={updateWorkoutData} templates={templates} key={2} />)
             }
             if (trainingType.name === 'mobility') {
-                return (<Mobility  updateTrainingTypesState={updateTrainingTypesState} updateWorkoutData={updateWorkoutData} templates={templates} key={3} />)
+                return (<Mobility  updateTrainingTypesState={updateTrainingTypesState} workoutData={workoutData} updateWorkoutData={updateWorkoutData} templates={templates} key={3} />)
             }
         }
         if (trainingType.index) {
@@ -431,6 +431,7 @@ export const Track = () => {
                     main: workoutData.main
                 })
             }
+            return workoutData
         }
 
         if (/strength/.test(target.id)) {
@@ -587,7 +588,7 @@ export const Track = () => {
                 })
                 return workoutData;
             }
-            
+            return workoutData
         }
 
         if (/cardio/.test(target.id)) {
@@ -728,6 +729,7 @@ export const Track = () => {
                 })
                 return workoutData;
             }
+            return workoutData
         }
         
         if (/cooldown/.test(target.id)) {
@@ -965,6 +967,7 @@ export const Track = () => {
                     main: workoutData.main
                 })
             }
+            return workoutData
         }
 
         if (/mobility/.test(target.id)) {
@@ -1129,6 +1132,7 @@ export const Track = () => {
                     main: workoutData.main
                 })
             }
+            return workoutData
         }
 
         if (/info/.test(target.id)) {
@@ -1212,8 +1216,161 @@ export const Track = () => {
                     main: workoutData.main   
                 })
             }
-
+            return workoutData
         }
+
+        if (/warmup/.test(target.type)){
+            setWorkoutData({
+                title: workoutData.title,
+                hours: workoutData.hours,
+                minutes: workoutData.minutes,
+                date: workoutData.date,
+                status: workoutData.status,
+                notes: workoutData.notes,
+                warmup: [
+                    ...workoutData.warmup,
+                    ...target.exercises
+                ],
+                cooldown: workoutData.cooldown,
+                mobility: workoutData.mobility,
+                main: workoutData.main   
+            })
+        }
+
+        if (/strength/.test(target.type)){
+            let addition = workoutData.main.filter( exerciseType => exerciseType.id === target.secondaryId )[0];
+            if (addition) {
+                for (let i in target.exercises) {
+                    addition.exercises.push(target.exercises[i]);
+                }
+                setWorkoutData({
+                    title: workoutData.title,
+                    hours: workoutData.hours,
+                    minutes: workoutData.minutes,
+                    date: workoutData.date,
+                    status: workoutData.status,
+                    notes: workoutData.notes,
+                    warmup: workoutData.warmup,
+                    cooldown: workoutData.cooldown,
+                    mobility: workoutData.mobility,
+                    main: [
+                        ...workoutData.main.filter( exerciseType => exerciseType.id !== target.secondaryId ),
+                        addition
+                    ]   
+                })
+            } else {
+                addition = target;
+                addition.id = addition.secondaryId;
+                setWorkoutData({
+                    title: workoutData.title,
+                    hours: workoutData.hours,
+                    minutes: workoutData.minutes,
+                    date: workoutData.date,
+                    status: workoutData.status,
+                    notes: workoutData.notes,
+                    warmup: workoutData.warmup,
+                    cooldown: workoutData.cooldown,
+                    mobility: workoutData.mobility,
+                    main: [
+                        ...workoutData.main,
+                        {
+                            id: addition.id,
+                            name: addition.name,
+                            type: addition.type,
+                            date: addition.date,
+                            exercises: addition.exercises
+                        }
+                    ]   
+                })
+            }
+            
+        }
+
+        if (/cardio/.test(target.type)){
+            let addition = workoutData.main.filter( exerciseType => exerciseType.id === target.secondaryId )[0];
+            if (addition) {
+                for (let i in target.exercises) {
+                    addition.exercises.push(target.exercises[i]);
+                }
+                setWorkoutData({
+                    title: workoutData.title,
+                    hours: workoutData.hours,
+                    minutes: workoutData.minutes,
+                    date: workoutData.date,
+                    status: workoutData.status,
+                    notes: workoutData.notes,
+                    warmup: workoutData.warmup,
+                    cooldown: workoutData.cooldown,
+                    mobility: workoutData.mobility,
+                    main: [
+                        ...workoutData.main.filter( exerciseType => exerciseType.id !== target.secondaryId ),
+                        addition
+                    ]   
+                })
+            } else {
+                addition = target;
+                addition.id = addition.secondaryId;
+                setWorkoutData({
+                    title: workoutData.title,
+                    hours: workoutData.hours,
+                    minutes: workoutData.minutes,
+                    date: workoutData.date,
+                    status: workoutData.status,
+                    notes: workoutData.notes,
+                    warmup: workoutData.warmup,
+                    cooldown: workoutData.cooldown,
+                    mobility: workoutData.mobility,
+                    main: [
+                        ...workoutData.main,
+                        {
+                            id: addition.id,
+                            name: addition.name,
+                            type: addition.type,
+                            date: addition.date,
+                            exercises: addition.exercises
+                        }
+                    ]   
+                })
+            }
+            
+        }
+
+        if (/cooldown/.test(target.type)){
+            setWorkoutData({
+                title: workoutData.title,
+                hours: workoutData.hours,
+                minutes: workoutData.minutes,
+                date: workoutData.date,
+                status: workoutData.status,
+                notes: workoutData.notes,
+                warmup: workoutData.warmup,
+                cooldown: [
+                    ...workoutData.cooldown,
+                    ...target.exercises
+                ],
+                mobility: workoutData.mobility,
+                main: workoutData.main   
+            })
+        }
+
+        if (/mobility/.test(target.type)){
+            setWorkoutData({
+                title: workoutData.title,
+                hours: workoutData.hours,
+                minutes: workoutData.minutes,
+                date: workoutData.date,
+                status: workoutData.status,
+                notes: workoutData.notes,
+                warmup: workoutData.warmup,
+                cooldown: workoutData.cooldown,
+                mobility: [
+                    ...workoutData.mobility,
+                    ...target.exercises
+                ],
+                main: workoutData.main   
+            })
+        }
+        
 
     }
 

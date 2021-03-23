@@ -1,23 +1,61 @@
-import React, {useState, useContext} from 'react'
-import { Context } from '../../../Context'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
-
-export const Warmup = ( { updateTrainingTypesState, updateWorkoutData, templates } ) => {
+let array = [];
+let selectedTemplate = {};
+export const Warmup = ( { updateTrainingTypesState, updateWorkoutData, workoutData, templates } ) => {
 
     const [templateChoice, setTemplateChoice] = useState('');
     const [exercises, setExercises] = useState({index: 1, array: [1]});
 
-    const addTemplate = (name) => {
-        if (name) {
-            if (name === 'new') {
+    const addTemplate = (value) => {
+        if (value) {
+            if (value === 'new') {
                 setExercises({index: exercises.index + 1, array: [...exercises.array, (exercises.index + 1)]});
             } else {
-                //to be used to load proper template
+                selectedTemplate = templates.filter( template => template._id === parseInt(value) )[0];
+                array = Array.from(Array(selectedTemplate.exercises.length).keys());
+                for (let i in array) {
+                    array[i] += exercises.index + 1;
+                }
+                setExercises({index: exercises.index + array.length, array: [...exercises.array, ...array]})
+                selectedTemplate.exercises.sort((a, b) => {
+                    let c = a.id;
+                    let d = b.id;
+                    return c-d;
+                });
+                for (let i in selectedTemplate.exercises ) {
+                    selectedTemplate.exercises[i].id = array[i];
+                }
+                selectedTemplate.type = 'warmup';
+                updateWorkoutData(selectedTemplate);
+                selectedTemplate.type = 'warmup-cooldown';
             }
         }
-        
     }
+
+    useEffect( () => {
+        for (let i in array) {
+            Array.from(document.querySelectorAll(`[id*="warmup-${array[i]}"]`)).forEach(
+                input => {
+                    if (/name/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].name;
+                    } else if (/weight-units/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].weightUnits;
+                    } else if (/weight/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].weight;
+                    } else if (/vol-units/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].volUnits;
+                    } else if (/vol/.test(input.id)) {                        
+                        input.value = selectedTemplate.exercises[i].vol;
+                    } else if (/sets/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].sets;
+                    }            
+                }
+            );
+        }
+        array = [];
+        selectedTemplate = {};
+    }, [workoutData])
 
     const populateTemplateList = () => {
         const selectedTemplates = templates.filter( template => template.type === 'warmup-cooldown' );
@@ -54,20 +92,69 @@ export const Warmup = ( { updateTrainingTypesState, updateWorkoutData, templates
     )
 }
 
-export const Strength = ( { updateTrainingTypesState, updateWorkoutData, index, templates } ) => {
+export const Strength = ( { updateTrainingTypesState, updateWorkoutData, workoutData, index, templates } ) => {
 
     const [templateChoice, setTemplateChoice] = useState('');
     const [exercises, setExercises] = useState({index: 1, array: [1]});
 
-    const addTemplate = (name) => {
-        if (name) {
-            if (name === 'new') {
+    const addTemplate = (value) => {
+        if (value) {
+            if (value === 'new') {
                 setExercises({index: exercises.index + 1, array: [...exercises.array, (exercises.index + 1)]});
             } else {
-                //to be used to load proper template
+                selectedTemplate = templates.filter( template => template._id === parseInt(value) )[0];
+                array = Array.from(Array(selectedTemplate.exercises.length).keys());
+                for (let i in array) {
+                    array[i] += exercises.index + 1;
+                }
+                setExercises({index: exercises.index + array.length, array: [...exercises.array, ...array]})
+                selectedTemplate.exercises.sort((a, b) => {
+                    let c = a.id;
+                    let d = b.id;
+                    return c-d;
+                });
+                for (let i in selectedTemplate.exercises ) {
+                    selectedTemplate.exercises[i].id = array[i];
+                }
+                selectedTemplate.secondaryId = index;
+                updateWorkoutData(selectedTemplate);
             }
+        }   
+    }
+
+    useEffect( () => {
+        for (let i in array) {
+            Array.from(document.querySelectorAll(`[id*="strength-${array[i]}-${index}"]`)).forEach(
+                input => {
+                    if (/name/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].name;
+                    } else if (/weight-units/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].weightUnits;
+                    } else if (/weight/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].weight;
+                    } else if (/vol-units/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].volUnits;
+                    } else if (/vol/.test(input.id)) {                        
+                        input.value = selectedTemplate.exercises[i].vol;
+                    } else if (/sets/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].sets;
+                    } else if (/rest-final/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].finalRest;
+                    } else if (/rest-units/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].restUnits;
+                    } else if (/rest/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].setRest;
+                    }
+                }
+            );
         }
-        
+        array = [];
+        selectedTemplate = {};
+    }, [workoutData])
+
+    const populateTemplateList = () => {
+        const selectedTemplates = templates.filter( template => template.type === 'strength' );
+        return selectedTemplates.map( template => <option value={template._id} key={template._id}>{template.name}</option> );
     }
 
     const removeExercise = (id) => {
@@ -86,7 +173,7 @@ export const Strength = ( { updateTrainingTypesState, updateWorkoutData, index, 
                 <option value="" disabled  hidden>Choose Template</option>
                 <option value="new">New Exercise</option>
                 <optgroup label="Templates">
-                    <option value="example">Example</option>
+                    { populateTemplateList() }
                 </optgroup>
             </select>
             <button onClick={ e => {e.preventDefault(); addTemplate(templateChoice)}}>
@@ -102,20 +189,62 @@ export const Strength = ( { updateTrainingTypesState, updateWorkoutData, index, 
     )
 }
 
-export const Cardio = ( { updateTrainingTypesState, updateWorkoutData, index, templates } ) => {
+export const Cardio = ( { updateTrainingTypesState, workoutData, updateWorkoutData, index, templates } ) => {
 
     const [templateChoice, setTemplateChoice] = useState('');
     const [exercises, setExercises] = useState({index: 1, array: [1]});
 
-    const addTemplate = (name) => {
-        if (name) {
-            if (name === 'new') {
+    const addTemplate = (value) => {
+        if (value) {
+            if (value === 'new') {
                 setExercises({index: exercises.index + 1, array: [...exercises.array, (exercises.index + 1)]});
             } else {
-                //to be used to load proper template
+                selectedTemplate = templates.filter( template => template._id === parseInt(value) )[0];
+                array = Array.from(Array(selectedTemplate.exercises.length).keys());
+                for (let i in array) {
+                    array[i] += exercises.index + 1;
+                }
+                setExercises({index: exercises.index + array.length, array: [...exercises.array, ...array]})
+                selectedTemplate.exercises.sort((a, b) => {
+                    let c = a.id;
+                    let d = b.id;
+                    return c-d;
+                });
+                for (let i in selectedTemplate.exercises ) {
+                    selectedTemplate.exercises[i].id = array[i];
+                }
+                selectedTemplate.secondaryId = index;
+                updateWorkoutData(selectedTemplate);
             }
         }
         
+    }
+
+    useEffect( () => {
+        for (let i in array) {
+            Array.from(document.querySelectorAll(`[id*="cardio-${array[i]}-${index}"]`)).forEach(
+                input => {
+                    if (/name/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].name;
+                    } else if (/distance-units/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].distanceUnits;
+                    } else if (/distance/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].distance;
+                    } else if (/pace-min/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].paceMin;
+                    } else if (/pace-sec/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].paceSec;
+                    }
+                }
+            );
+        }
+        array = [];
+        selectedTemplate = {};
+    }, [workoutData])
+
+    const populateTemplateList = () => {
+        const selectedTemplates = templates.filter( template => template.type === 'cardio' );
+        return selectedTemplates.map( template => <option value={template._id} key={template._id}>{template.name}</option> );
     }
 
     const removeExercise = (id) => {
@@ -134,7 +263,7 @@ export const Cardio = ( { updateTrainingTypesState, updateWorkoutData, index, te
                 <option value="" disabled  hidden>Choose Template</option>
                 <option value="new">New Exercise</option>
                 <optgroup label="Templates">
-                    <option value="example">Example</option>
+                    { populateTemplateList() }
                 </optgroup>
             </select>
             <button onClick={ e => {e.preventDefault(); addTemplate(templateChoice)}}>
@@ -148,20 +277,64 @@ export const Cardio = ( { updateTrainingTypesState, updateWorkoutData, index, te
     )
 }
 
-export const Cooldown = ( { updateTrainingTypesState, updateWorkoutData, templates } ) => {
+export const Cooldown = ( { updateTrainingTypesState, updateWorkoutData, workoutData, templates } ) => {
     
     const [templateChoice, setTemplateChoice] = useState('');
     const [exercises, setExercises] = useState({index: 1, array: [1]});
 
-    const addTemplate = (name) => {
-        if (name) {
-            if (name === 'new') {
+    const addTemplate = (value) => {
+        if (value) {
+            if (value === 'new') {
                 setExercises({index: exercises.index + 1, array: [...exercises.array, (exercises.index + 1)]});
             } else {
-                //to be used to load proper template
+                selectedTemplate = templates.filter( template => template._id === parseInt(value) )[0];
+                array = Array.from(Array(selectedTemplate.exercises.length).keys());
+                for (let i in array) {
+                    array[i] += exercises.index + 1;
+                }
+                setExercises({index: exercises.index + array.length, array: [...exercises.array, ...array]})
+                selectedTemplate.exercises.sort((a, b) => {
+                    let c = a.id;
+                    let d = b.id;
+                    return c-d;
+                });
+                for (let i in selectedTemplate.exercises ) {
+                    selectedTemplate.exercises[i].id = array[i];
+                }
+                selectedTemplate.type = 'cooldown';
+                updateWorkoutData(selectedTemplate);
+                selectedTemplate.type = 'warmup-cooldown';
             }
         }
-        
+    }
+
+    useEffect( () => {
+        for (let i in array) {
+            Array.from(document.querySelectorAll(`[id*="cooldown-${array[i]}"]`)).forEach(
+                input => {
+                    if (/name/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].name;
+                    } else if (/weight-units/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].weightUnits;
+                    } else if (/weight/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].weight;
+                    } else if (/vol-units/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].volUnits;
+                    } else if (/vol/.test(input.id)) {                        
+                        input.value = selectedTemplate.exercises[i].vol;
+                    } else if (/sets/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].sets;
+                    }            
+                }
+            );
+        }
+        array = [];
+        selectedTemplate = {};
+    }, [workoutData])
+
+    const populateTemplateList = () => {
+        const selectedTemplates = templates.filter( template => template.type === 'warmup-cooldown' );
+        return selectedTemplates.map( template => <option value={template._id} key={template._id}>{template.name}</option> );
     }
 
     const removeExercise = (id) => {
@@ -179,7 +352,7 @@ export const Cooldown = ( { updateTrainingTypesState, updateWorkoutData, templat
                 <option value="" disabled hidden>Choose Template</option>
                 <option value="new">New Exercise</option>
                 <optgroup label="Templates">
-                    <option value="example">Example</option>
+                    { populateTemplateList() }
                 </optgroup>
             </select>
             <button onClick={ e => {e.preventDefault(); addTemplate(templateChoice)}}>
@@ -193,20 +366,59 @@ export const Cooldown = ( { updateTrainingTypesState, updateWorkoutData, templat
     )
 }
 
-export const Mobility = ( { updateTrainingTypesState, updateWorkoutData, templates } ) => {
+export const Mobility = ( { updateTrainingTypesState, updateWorkoutData, workoutData, templates } ) => {
 
     const [templateChoice, setTemplateChoice] = useState('');
     const [exercises, setExercises] = useState({index: 1, array: [1]});
 
-    const addTemplate = (name) => {
-        if (name) {
-            if (name === 'new') {
+    const addTemplate = (value) => {
+        if (value) {
+            if (value === 'new') {
                 setExercises({index: exercises.index + 1, array: [...exercises.array, (exercises.index + 1)]});
             } else {
-                //to be used to load proper template
+                selectedTemplate = templates.filter( template => template._id === parseInt(value) )[0];
+                array = Array.from(Array(selectedTemplate.exercises.length).keys());
+                for (let i in array) {
+                    array[i] += exercises.index + 1;
+                }
+                setExercises({index: exercises.index + array.length, array: [...exercises.array, ...array]})
+                selectedTemplate.exercises.sort((a, b) => {
+                    let c = a.id;
+                    let d = b.id;
+                    return c-d;
+                });
+                for (let i in selectedTemplate.exercises ) {
+                    selectedTemplate.exercises[i].id = array[i];
+                }
+                updateWorkoutData(selectedTemplate);
             }
         }
         
+    }
+
+    useEffect( () => {
+        for (let i in array) {
+            Array.from(document.querySelectorAll(`[id*="mobility-${array[i]}"]`)).forEach(
+                input => {
+                    if (/name/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].name;
+                    } else if (/time-units/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].timeUnits;
+                    } else if (/time/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].time;
+                    } else if (/sets/.test(input.id)) {
+                        input.value = selectedTemplate.exercises[i].sets;
+                    }            
+                }
+            );
+        }
+        array = [];
+        selectedTemplate = {};
+    }, [workoutData])
+
+    const populateTemplateList = () => {
+        const selectedTemplates = templates.filter( template => template.type === 'mobility' );
+        return selectedTemplates.map( template => <option value={template._id} key={template._id}>{template.name}</option> );
     }
 
     const removeExercise = (id) => {
@@ -224,7 +436,7 @@ export const Mobility = ( { updateTrainingTypesState, updateWorkoutData, templat
                 <option value="" disabled  hidden>Choose Template</option>
                 <option value="new">New Exercise</option>
                 <optgroup label="Templates">
-                    <option value="example">Example</option>
+                    { populateTemplateList() }
                 </optgroup>
             </select>
             <button onClick={ e => {e.preventDefault(); addTemplate(templateChoice)}}>
@@ -343,7 +555,7 @@ export const NewExercise = ( { type, index, secondaryIndex, removeExercise, upda
                 <option value="seconds">Seconds</option>
                 <option value="minutes">Minutes</option>
             </select><br className="mobile-only" />
-            <input className="exercise-secondary" type="number" id={`mobility-${index}-pace-sets`} name={`mobility-${index}-pace-sets`} placeholder="Sets" onBlur={ e => updateWorkoutData(e.target) } />
+            <input className="exercise-secondary" type="number" id={`mobility-${index}-sets`} name={`mobility-${index}-sets`} placeholder="Sets" onBlur={ e => updateWorkoutData(e.target) } />
             <button className="remove-exercise" id={`mobility-${index}-remove`} onClick={ e => {e.preventDefault(); removeExercise(index); updateWorkoutData(e.target)} }>REMOVE</button><br /><br className="mobile-only" />
             </>
         )
