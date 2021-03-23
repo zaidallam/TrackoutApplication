@@ -11,7 +11,7 @@ import '../../css/post_auth/General.css'
 
 export const Templates = () => {
 
-    const { isAuth, logout, authUser} = useContext(Context);
+    const { isAuth, logout, authUser, setIsLoading } = useContext(Context);
 
     const [ isNewTemplateActive, setIsNewTemplateActive ] = useState(false);
 
@@ -28,6 +28,7 @@ export const Templates = () => {
     const [deleteFailStyle, setDeleteFailStyle] = useState('hide');
 
     const fetchTemplates = () => {
+        setIsLoading(true);
         axios({
             method: 'GET',
             withCredentials: true,
@@ -35,9 +36,11 @@ export const Templates = () => {
         })
         .then((res) => {
             setSourceTemplates(res.data.reverse());
+            setIsLoading(false);
         })
         .catch(() => {
             console.log('fetching failed');
+            setIsLoading(false);
         });
     }
 

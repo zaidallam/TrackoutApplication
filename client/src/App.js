@@ -17,6 +17,7 @@ import { Dashboard } from './components/post_auth/Dashboard';
 import { Track } from './components/post_auth/Track';
 import { Logs } from './components/post_auth/Logs';
 import { Templates } from './components/post_auth/Templates';
+import { Loading } from './components/Loading';
 
 import axios from 'axios';
 
@@ -24,8 +25,10 @@ function App() {
   
   const [isAuth, setIsAuth] = useState(false);
   const [authUser, setAuthUser] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const logout = () => {
+    setIsLoading(true);
     axios({
       method: 'DELETE',
       withCredentials: true,
@@ -35,14 +38,17 @@ function App() {
       console.log(res);
       setAuthUser('');
       setIsAuth(false);
+      setIsLoading(false);
     })
     .catch((err) => {
       console.log(err);
       setIsAuth(false);
+      setIsLoading(false);
     });
   }
 
   const checkAuth = () => {
+    setIsLoading(true);
     axios({
       method: 'GET',
       withCredentials: true,
@@ -55,9 +61,11 @@ function App() {
       } else {
         setIsAuth(false);
       }
+      setIsLoading(false);
     })
     .catch((err) => {
       setIsAuth(false);
+      setIsLoading(false);
       console.log(err);
     });
   }
@@ -72,7 +80,9 @@ function App() {
     isAuth: isAuth, 
     setIsAuth: setIsAuth, 
     setAuthUser: setAuthUser,
-    authUser: authUser
+    authUser: authUser,
+    isLoading: isLoading,
+    setIsLoading: setIsLoading
   }
 
   return (
@@ -102,6 +112,7 @@ function App() {
         <Route path='/app/logs' exact component={Logs}/>
         <Route path='/app/templates' exact component={Templates}/>
       </Router>
+      <Loading />
     </Context.Provider>
   );
 }

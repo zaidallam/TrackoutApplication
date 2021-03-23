@@ -10,7 +10,7 @@ import '../../css/post_auth/General.css'
 
 export const Logs = () => {
 
-    const { isAuth, logout, authUser} = useContext(Context);
+    const { isAuth, logout, authUser, setIsLoading } = useContext(Context);
     const [sourceLog, setSourceLog] = useState([]);
     const [logPool, setLogPool] = useState([])
     const [activeLog, setActiveLog] = useState([]);
@@ -24,6 +24,7 @@ export const Logs = () => {
     const [deleteFailStyle, setDeleteFailStyle] = useState('hide');
 
     const fetchWorkoutLog = () => {
+        setIsLoading(true);
         axios({
             method: 'GET',
             withCredentials: true,
@@ -31,9 +32,11 @@ export const Logs = () => {
         })
         .then((res) => {
             setSourceLog(res.data.reverse());
+            setIsLoading(false);
         })
         .catch(() => {
             console.log('fetching failed');
+            setIsLoading(false);
         });
     }
 

@@ -11,9 +11,10 @@ export const Login = () => {
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const [loginError, setLoginError] = useState("hide");
-    const { setIsAuth, isAuth, setAuthUser } = useContext(Context);
+    const { setIsAuth, isAuth, setAuthUser, setIsLoading } = useContext(Context);
 
     const login = () => {
+        setIsLoading(true);
         axios({
             method: 'POST',
             data: {
@@ -29,9 +30,11 @@ export const Login = () => {
             setLoginError("hide");
             setAuthUser(loginUsername);
             setIsAuth(true);
+            setIsLoading(false);
         })
         .catch(() => {
             setLoginError("");
+            setIsLoading(false);
         });
     }
     

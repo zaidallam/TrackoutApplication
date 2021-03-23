@@ -15,9 +15,10 @@ export const Signup = () => {
     const [signupPasswordConf, setSignupPasswordConf] = useState("");
     const [signupError, setSignupError] = useState({style: {display: 'none'}, message: 'Error'});
     const [signupComplete, setSignupComplete] = useState(false);
-    const { isAuth } = useContext(Context);
+    const { isAuth, setIsLoading } = useContext(Context);
 
     const signup = () => {
+        setIsLoading(true);
         axios({
             method: 'POST',
             data: {
@@ -33,10 +34,12 @@ export const Signup = () => {
             res.config.data = "hidden";
             console.log(res);
             setSignupError({style: {display: 'none'}, message: 'Error'});
-            setSignupComplete(true)
+            setSignupComplete(true);
+            setIsLoading(false);
         })
         .catch((err) => {
             setSignupError({style: {display: 'block'}, message: err.response.data.message});
+            setIsLoading(false);
         });
     }
     
