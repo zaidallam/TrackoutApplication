@@ -22,7 +22,7 @@ export const Login = () => {
                 password: loginPassword
             },
             withCredentials: true,
-            url: "http://localhost:5000/login"
+            url: "134.209.209.34:5000/login"
         })
         .then((res) => {
             res.config.data = "hidden";

@@ -28,7 +28,7 @@ export const Logs = () => {
         axios({
             method: 'GET',
             withCredentials: true,
-            url: `http://localhost:5000/users/${authUser}?resource=logs`
+            url: `134.209.209.34:5000/users/${authUser}?resource=logs`
         })
         .then((res) => {
             setSourceLog(res.data.reverse());

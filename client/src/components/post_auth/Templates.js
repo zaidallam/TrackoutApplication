@@ -32,7 +32,7 @@ export const Templates = () => {
         axios({
             method: 'GET',
             withCredentials: true,
-            url: `http://localhost:5000/users/${authUser}?resource=templates`
+            url: `134.209.209.34:5000/users/${authUser}?resource=templates`
         })
         .then((res) => {
             setSourceTemplates(res.data.reverse());
