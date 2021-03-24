@@ -22,7 +22,7 @@ export const Login = () => {
                 password: loginPassword
             },
             withCredentials: true,
-            url: "https://trackoutapp.com/login"
+            url: "localhost:5000/login"
         })
         .then((res) => {
             res.config.data = "hidden";

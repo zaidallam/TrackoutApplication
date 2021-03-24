@@ -82,7 +82,7 @@ export const LogWindow = ( { workout, setLogEntry, getDate, getDuration, deleteC
             method: 'DELETE',
             data: {_id: workout._id},
             withCredentials: true,
-            url: `https://trackoutapp.com/users/${authUser}?resource=logs`
+            url: `localhost:5000/users/${authUser}?resource=logs`
         })
         .then((res) => {
             setTimeout( () => setDeleteConfirmStyle('hide'), 5000); 

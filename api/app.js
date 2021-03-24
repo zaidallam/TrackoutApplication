@@ -14,7 +14,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors({
-    origin: "https://trackoutapp.netlify.app/",
+    origin: "localhost:3000",
     credentials: true
 }));
 
@@ -23,12 +23,10 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-app.use(cookieParser("secretcode"));
+app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(passport.initialize());
 app.use(passport.session())
 require('./passportConfig')(passport);
-
-app.use(cookieParser(process.env.SESSION_SECRET));
 
 //Import routers
 const userRoutes = require('./routes/userRoutes');
