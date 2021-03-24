@@ -21,7 +21,7 @@ export const About = () => {
                         <h1>ABOUT</h1>
                         <section className="page-content">
                             <h2>THE STORY OF TRACKOUT</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            <p>This Trackout prototype was created by Zaid Allam to merge his two of his passions: fitness and programming. By creating this app, he made for himself an effective, clean, workout tracking app that fits all his needs exactly, while gaining valueable programming experience at the same time. The end result is something that anybody can use to track their training and take their fitness to new levels!</p>
                         </section>
                     </div>
                     <Footer />

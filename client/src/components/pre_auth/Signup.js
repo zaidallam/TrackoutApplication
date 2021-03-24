@@ -28,7 +28,7 @@ export const Signup = () => {
                 passwordConf: signupPasswordConf
             },
             withCredentials: true,
-            url: "134.209.209.34:5000/users/"
+            url: "http://134.209.209.34:5000/users/"
         })
         .then((res) => {
             res.config.data = "hidden";
@@ -55,6 +55,7 @@ export const Signup = () => {
                 <div className="content-container fade-in">
                     <h1>SIGN UP</h1>
                     <section className="page-content">
+                        <p style={{width:'75%', margin: 'auto', backgroundColor:'#FF000088', color: 'white', marginBottom: '10px'}}>WARNING: This application is a prototype and security features are still under development. The connection made to the server when you sign up or log in is NOT YET SECURED. This means that, for the moment, you SHOULD NOT use a password here that you use anywhere else.</p>
                         <form method="post" id="contact">
                             <div>
                                 <input className="input-area" type="text" id="name" name="name" maxLength="50" placeholder="Name" onChange={e => setSignupName(e.target.value)}/>

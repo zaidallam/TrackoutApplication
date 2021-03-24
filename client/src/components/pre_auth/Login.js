@@ -22,7 +22,7 @@ export const Login = () => {
                 password: loginPassword
             },
             withCredentials: true,
-            url: "134.209.209.34:5000/login"
+            url: "http://134.209.209.34:5000/login"
         })
         .then((res) => {
             res.config.data = "hidden";
@@ -47,6 +47,7 @@ export const Login = () => {
                 <NavBar selected="none"/>
                 <div className="content-container fade-in">
                     <h1>LOG IN</h1>
+                    <p style={{width:'75%', margin: 'auto', backgroundColor:'#FF000088', color: 'white', fontSize: '30px', textAlign: 'center', marginTop: '10px'}}>WARNING: This application is a prototype and security features are still under development. The connection made to the server when you sign up or log in is NOT YET SECURED. This means that, for the moment, you SHOULD NOT use a password here that you use anywhere else.</p>
                     <section className="page-content">
                         <form method="post" id="contact">
                             <div>

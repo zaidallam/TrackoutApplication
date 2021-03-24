@@ -1385,7 +1385,7 @@ export const Track = () => {
                 method: 'POST',
                 data: workoutData,
                 withCredentials: true,
-                url: `134.209.209.34:5000/users/${authUser}?resource=logs`
+                url: `http://134.209.209.34:5000/users/${authUser}?resource=logs`
             })
             .then((res) => {
                 res.config.data = "hidden";
@@ -1440,7 +1440,7 @@ export const Track = () => {
         axios({
             method: 'GET',
             withCredentials: true,
-            url: `134.209.209.34:5000/users/${authUser}?resource=templates`
+            url: `http://134.209.209.34:5000/users/${authUser}?resource=templates`
         })
         .then((res) => {
             setTemplates(res.data);

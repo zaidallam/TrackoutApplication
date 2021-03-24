@@ -24,21 +24,21 @@ export const Features = () => {
                             <h2>LOG YOUR TRAINING</h2>
                             <div>
                                 <img alt="" src="./assets/Feature1.svg" />
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                <p>Data is power, what gets measured gets managed, and knowing where your fitness was is just as important as knowing where it currently is. That's why Trackout allows you to quickly and effectively log your workouts in a clean and organized fasion. When you're done logging a workout, simply go to your workout log to manage and view all of your training history!</p>
                             </div>
                         </div>
                         <div className="feature">
-                            <h2>CREATE WORKOUTS</h2>
+                            <h2>CREATE WORKOUT TEMPLATES</h2>
                             <div>
                                 <img alt="" src="./assets/Feature2.svg" />
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                <p>Consistency is key, so let's face it: Training is often the same from week to week. By allowing you to create workout templates, Trackout saves you the hassle of having to remember and recite your workouts from session to session. Simply create a template, save it, and import it into your workouts as you're logging them. No more wasting time writing down the same thing over and over!</p>
                             </div>
                         </div>
                         <div className="feature">
                             <h2>TRACK YOUR PROGRESS</h2>
                             <div>
                                 <img alt="" src="./assets/Feature3.svg" />
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+                                <p>Trackout shows you your most recent training, presents to you graphs about the history of your training, and lets you review past workouts. By allowing you to review your workouts, Trackout effectively lets you track your progress over time so that you know where you've been and can decide where you're going on your fitness journey!</p>
                             </div>
                         </div>
                     </section>
