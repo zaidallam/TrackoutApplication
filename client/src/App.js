@@ -32,7 +32,7 @@ function App() {
     axios({
       method: 'DELETE',
       withCredentials: true,
-      url: "https://api.trackoutapp.com/logout"
+      url: "https://trackoutapp.com/logout"
     })
     .then((res) => {
       console.log(res);
@@ -52,7 +52,7 @@ function App() {
     axios({
       method: 'GET',
       withCredentials: true,
-      url: "https://api.trackoutapp.com/checkauth"
+      url: "https://trackoutapp.com/checkauth"
     })
     .then((res) => {
       if (res.data.authenticated === true) {

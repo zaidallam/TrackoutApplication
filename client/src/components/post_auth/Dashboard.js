@@ -19,7 +19,7 @@ export const Dashboard = () => {
         axios({
             method: 'GET',
             withCredentials: true,
-            url: `https://api.trackoutapp.com/users/${authUser}?resource=logs`
+            url: `https://trackoutapp.com/users/${authUser}?resource=logs`
         })
         .then((res) => {
             setWorkouts(res.data.reverse());

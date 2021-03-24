@@ -32,7 +32,7 @@ export const Templates = () => {
         axios({
             method: 'GET',
             withCredentials: true,
-            url: `https://api.trackoutapp.com/users/${authUser}?resource=templates`
+            url: `https://trackoutapp.com/users/${authUser}?resource=templates`
         })
         .then((res) => {
             setSourceTemplates(res.data.reverse());

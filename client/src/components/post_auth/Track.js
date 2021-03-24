@@ -1385,7 +1385,7 @@ export const Track = () => {
                 method: 'POST',
                 data: workoutData,
                 withCredentials: true,
-                url: `https://api.trackoutapp.com/users/${authUser}?resource=logs`
+                url: `https://trackoutapp.com/users/${authUser}?resource=logs`
             })
             .then((res) => {
                 res.config.data = "hidden";
@@ -1440,7 +1440,7 @@ export const Track = () => {
         axios({
             method: 'GET',
             withCredentials: true,
-            url: `https://api.trackoutapp.com/users/${authUser}?resource=templates`
+            url: `https://trackoutapp.com/users/${authUser}?resource=templates`
         })
         .then((res) => {
             setTemplates(res.data);
