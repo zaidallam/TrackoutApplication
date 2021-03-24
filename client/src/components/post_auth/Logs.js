@@ -28,7 +28,7 @@ export const Logs = () => {
         axios({
             method: 'GET',
             withCredentials: true,
-            url: `http://134.209.209.34:5000/users/${authUser}?resource=logs`
+            url: `https://api.trackoutapp.com/users/${authUser}?resource=logs`
         })
         .then((res) => {
             setSourceLog(res.data.reverse());

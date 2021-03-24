@@ -28,7 +28,7 @@ export const Signup = () => {
                 passwordConf: signupPasswordConf
             },
             withCredentials: true,
-            url: "http://134.209.209.34:5000/users/"
+            url: "https://api.trackoutapp.com/users/"
         })
         .then((res) => {
             res.config.data = "hidden";
