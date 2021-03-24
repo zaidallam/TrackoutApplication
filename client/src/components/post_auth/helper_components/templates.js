@@ -297,7 +297,7 @@ export const NewTemplateWindow = ( { setActive, fetchTemplates, resetList } ) =>
                 method: 'POST',
                 data: templateData,
                 withCredentials: true,
-                url: `localhost:5000/users/${authUser}?resource=templates`
+                url: `http://localhost:5000/users/${authUser}?resource=templates`
             })
             .then((res) => {
                 setActive(false);
@@ -634,7 +634,7 @@ export const TemplateWindow = ( { template, setTemplateEntry, getDate, getDay, d
             method: 'DELETE',
             data: {_id: template._id},
             withCredentials: true,
-            url: `localhost:5000/users/${authUser}?resource=templates`
+            url: `http://localhost:5000/users/${authUser}?resource=templates`
         })
         .then((res) => {
             setTimeout( () => setDeleteConfirmStyle('hide'), 5000); 

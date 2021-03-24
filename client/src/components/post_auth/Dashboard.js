@@ -19,7 +19,7 @@ export const Dashboard = () => {
         axios({
             method: 'GET',
             withCredentials: true,
-            url: `localhost:5000/users/${authUser}?resource=logs`
+            url: `http://localhost:5000/users/${authUser}?resource=logs`
         })
         .then((res) => {
             setWorkouts(res.data.reverse());

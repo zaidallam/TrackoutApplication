@@ -28,7 +28,7 @@ export const Signup = () => {
                 passwordConf: signupPasswordConf
             },
             withCredentials: true,
-            url: "localhost:5000/users/"
+            url: "http://localhost:5000/users/"
         })
         .then((res) => {
             res.config.data = "hidden";
